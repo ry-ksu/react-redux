@@ -1,7 +1,7 @@
 import React from 'react';
-import { GameProps } from './gameList';
+import { GameProps } from '../gameList';
 
-const AllCards: React.FC<{ gameList: GameProps[] }> = ({ gameList }) => {
+export const Cards: React.FC<{ gameList: GameProps[] }> = ({ gameList }) => {
   return (
     <div className="cards">
       {gameList.map((game) => (
@@ -17,5 +17,3 @@ const AllCards: React.FC<{ gameList: GameProps[] }> = ({ gameList }) => {
     </div>
   );
 };
-
-export default AllCards;
