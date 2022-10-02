@@ -39,7 +39,6 @@ export class Search extends Component<SearchProps, SearchState> {
     return gameList.filter((game) => {
       return (
         game.creator.toLowerCase().includes(lowerCaseInputSearch) ||
-        game.description.toLowerCase().includes(lowerCaseInputSearch) ||
         game.rating.toString().includes(lowerCaseInputSearch) ||
         game.title.toLowerCase().includes(lowerCaseInputSearch) ||
         game.year.toString().includes(lowerCaseInputSearch)

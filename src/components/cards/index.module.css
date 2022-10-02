@@ -1,0 +1,98 @@
+.cards {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 5px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card {
+  border: solid 2px rgb(60, 57, 232);
+  border-radius: 20px;
+  width: 210px;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card__img {
+  border-radius: 20px;
+  width: 210px;
+  height: 260px;
+}
+
+.content {
+  transform: translate(0px, -40px);
+  padding: 5px 10px 0;
+}
+
+.content h3 {
+  font-size: 23px;
+  color: rgb(26, 26, 26);
+}
+
+.content h4 {
+  font-size: 15px;
+  margin-top: 10px;
+  color: rgb(76, 76, 76);
+}
+
+.content h5 {
+  font-size: 15px;
+  color: rgb(26, 26, 26);
+}
+
+.rating {
+  transform: translate(155px, -45px);
+  background: rgb(17, 189, 166);
+  border-radius: 40px;
+  color: #fff;
+  font-size: 20px;
+  height: 30px;
+  width: 50px;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.card__img.card__img_witcher3 {
+  background: url(../../img/witcher3.png) center / contain no-repeat;
+}
+
+.card__img.card__img_massEffect2 {
+  background: url(../../img/massEffect2.png) center / contain no-repeat;
+}
+
+.card__img.card__img_fahrenheit {
+  background: url(../../img/fahrenheit.png) center / contain no-repeat;
+}
+
+.card__img.card__img_rimWorld {
+  background: url(../../img/rimWorld.png) center / contain no-repeat;
+}
+
+.card__img.card__img_beholder {
+  background: url(../../img/beholder.png) center / contain no-repeat;
+}
+
+.card__img.card__img_nfs {
+  background: url(../../img/nfs.png) center / contain no-repeat;
+}
+
+.card__img.card__img_bannerSaga {
+  background: url(../../img/bannerSaga.png) center / contain no-repeat;
+}
+
+.card__img.card__img_walkingDead {
+  background: url(../../img/walkingDead.png) center / contain no-repeat;
+}
+
+.card__img.card__img_heavyRain {
+  background: url(../../img/heavyRain.png) center / contain no-repeat;
+}
+
+.card__img.card__img_warOfMine {
+  background: url(../../img/warOfMine.png) center / contain no-repeat;
+}

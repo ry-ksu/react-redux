@@ -5,7 +5,7 @@
 
 .headerWrapper header {
   height: 25px;
-  width: 110px;
+  width: 120px;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -23,6 +23,6 @@
   border-bottom: 2px solid rgb(235, 143, 255);
 }
 
-.headerWrapper a.active {
+.link.active {
   color:rgb(92, 232, 57);
 }
