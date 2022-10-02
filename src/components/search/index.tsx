@@ -50,6 +50,7 @@ export class Search extends Component<SearchProps, SearchState> {
     const { inputSearch } = this.state;
     return (
       <>
+        <h1 className={styles.pageName}>Games</h1>
         <div className={styles.search}>
           <form>
             <button disabled></button>

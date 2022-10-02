@@ -9,12 +9,8 @@ export const Layout = () => {
     <>
       <div className={styles.headerWrapper}>
         <header>
-          <NavLink className={styles.link} to="/">
-            Games
-          </NavLink>
-          <NavLink className={styles.link} to="/about">
-            About
-          </NavLink>
+          <NavLink to="/">Games</NavLink>
+          <NavLink to="/about">About</NavLink>
         </header>
       </div>
 

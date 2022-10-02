@@ -13,7 +13,7 @@
 
 .headerWrapper a {
   color: #fff;
-  text-decoration: none; 
+  text-decoration: none;
   font-size: 20px;
   box-sizing: border-box;
 }
@@ -21,8 +21,4 @@
 .headerWrapper a:hover {
   color: rgb(235, 143, 255);
   border-bottom: 2px solid rgb(235, 143, 255);
-}
-
-.link.active {
-  color:rgb(92, 232, 57);
 }
