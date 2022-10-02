@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Cards } from '../cards';
 import { gameList } from '../gameList';
 
+import styles from './index.module.css';
+
 type SearchState = {
   inputSearch: string;
 };
@@ -49,9 +51,17 @@ export class Search extends Component<SearchProps, SearchState> {
     const { inputSearch } = this.state;
     return (
       <>
-        <form>
-          <input type="search" value={inputSearch} onChange={this.handleInputSearch} />
-        </form>
+        <div className={styles.search}>
+          <form>
+            <button disabled></button>
+            <input
+              type="search"
+              value={inputSearch}
+              placeholder="Найти игру..."
+              onChange={this.handleInputSearch}
+            />
+          </form>
+        </div>
         <Cards gameList={this.filteredGames(inputSearch)} />
       </>
     );
