@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.68741694.css",
+    "main.js": "/static/js/main.adbd64c4.js",
+    "static/js/787.e56f57c5.chunk.js": "/static/js/787.e56f57c5.chunk.js",
+    "static/media/search.png": "/static/media/search.6ce43594df672411881e.png",
+    "static/media/bannerSaga.png": "/static/media/bannerSaga.2694b29bf6b7c7cd87bf.png",
+    "static/media/nfs.png": "/static/media/nfs.2c8c33844dfc6f55f459.png",
+    "static/media/fahrenheit.png": "/static/media/fahrenheit.32144be2360870112124.png",
+    "static/media/massEffect2.png": "/static/media/massEffect2.afffb4637526df3b4f9b.png",
+    "static/media/rimWorld.png": "/static/media/rimWorld.f2651576cca7dce72f1c.png",
+    "static/media/beholder.png": "/static/media/beholder.f62d18e4afa1e0f7cc8e.png",
+    "static/media/walkingDead.png": "/static/media/walkingDead.b368f17163e9d4e87e40.png",
+    "static/media/witcher3.png": "/static/media/witcher3.a7e810c036e216a7d40a.png",
+    "static/media/heavyRain.png": "/static/media/heavyRain.d3e97584f2ec85189bb0.png",
+    "static/media/warOfMine.png": "/static/media/warOfMine.c3564f6805c17c3c9571.png",
+    "static/media/remove.png": "/static/media/remove.204feae4a6b15594240b.png",
+    "index.html": "/index.html",
+    "main.68741694.css.map": "/static/css/main.68741694.css.map",
+    "main.adbd64c4.js.map": "/static/js/main.adbd64c4.js.map",
+    "787.e56f57c5.chunk.js.map": "/static/js/787.e56f57c5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.68741694.css",
+    "static/js/main.adbd64c4.js"
+  ]
+}
