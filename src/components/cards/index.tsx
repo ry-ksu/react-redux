@@ -1,5 +1,5 @@
 import React from 'react';
-import { GameProps } from '../gameList';
+import { GameProps } from '../../data/gameList';
 
 import styles from './index.module.css';
 

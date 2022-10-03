@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';
 
-import { NotFoundPage } from 'components/pages/NotFoundPage';
-import { About } from 'components/pages/About';
-import { Layout } from 'components/layout';
-import { Games } from 'components/pages/Games';
+import { NotFoundPage } from '../pages/NotFoundPage';
+import { About } from '../pages/About';
+import { Layout } from '../layout';
+import { Games } from '../pages/Games';
 
 function App() {
   return (
