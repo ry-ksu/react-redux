@@ -38,16 +38,4 @@ describe('Cards component', () => {
 
     expect(screen.queryByText(/The Witcher/i)).toBeNull();
   });
-
-  it('Cards snapshot', () => {
-    const cards = render(<Cards gameList={gameList} />);
-
-    expect(cards).toMatchSnapshot();
-  });
-
-  it('Cards empty snapshot', () => {
-    const cards = render(<Cards gameList={[]} />);
-
-    expect(cards).toMatchSnapshot();
-  });
 });
