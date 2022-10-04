@@ -16,11 +16,17 @@ export class Search extends Component<SearchProps, SearchState> {
   };
 
   componentDidMount() {
-    this.setState({ inputSearch: JSON.parse(localStorage.getItem('search-value') || '') });
+    const data = JSON.parse(localStorage.getItem('game-app') || '{}');
+    if (Object.keys(data).length !== 0) {
+      this.setState({ inputSearch: data.inputSearch });
+    }
   }
 
   componentWillUnmount() {
-    localStorage.setItem('search-value', JSON.stringify(this.state.inputSearch));
+    const data = {
+      inputSearch: this.state.inputSearch,
+    };
+    localStorage.setItem('game-app', JSON.stringify(data));
   }
 
   handleInputSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
