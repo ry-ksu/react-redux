@@ -10,6 +10,7 @@ export const Layout = () => {
       <div className={styles.headerWrapper}>
         <header>
           <NavLink to="/">Games</NavLink>
+          <NavLink to="/forms">Forms</NavLink>
           <NavLink to="/about">About</NavLink>
         </header>
       </div>
