@@ -1,27 +1,42 @@
 import React, { useRef, useState } from 'react';
+import { createInput } from './input';
 
 export const Forms = () => {
   const nameInput = useRef<HTMLInputElement>(null);
   const birthdayInput = useRef<HTMLInputElement>(null);
   const eMailInput = useRef<HTMLInputElement>(null);
+  const enLvlInput = useRef<HTMLSelectElement>(null);
+  const PDAgreementInput = useRef<HTMLInputElement>(null);
+  const subscriptionInput = useRef<HTMLInputElement>(null);
+  const file = useRef<HTMLInputElement>(null);
 
   const [nameDirty, setNameDirty] = useState(false);
   const [birthDirty, setBirthDirty] = useState(false);
   const [eMailDirty, setEMailDirty] = useState(false);
+  const [enLvlDirty, setEnLvlDirty] = useState(false);
+  const [PDAgreementDirty, setPDAgreementDirty] = useState(false);
 
   const [nameError, setNameError] = useState('');
   const [birthError, setBirthError] = useState('');
   const [eMailError, setEMailError] = useState('');
+  const [enLvlError, setEnLvlError] = useState('');
+  const [PDAgreementError, setPDAgreementError] = useState('');
+
+  const [image, setImage] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setNameDirty(true);
     setBirthDirty(true);
     setEMailDirty(true);
+    setEnLvlDirty(true);
+    setPDAgreementDirty(true);
 
     checkNameErrors();
     checkBirthErrors();
     checkEMailErrors();
+    checkEnLvlErrors();
+    checkPDAgreementErrors();
   };
 
   const checkNameErrors = () => {
@@ -74,8 +89,25 @@ export const Forms = () => {
     }
   };
 
-  // onChange или onBlure;
-  const handlerInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const checkEnLvlErrors = () => {
+    if (enLvlInput.current?.value === 'notChosen') {
+      setEnLvlError('Необходимо выбрать уровень английского языка');
+    } else {
+      setEnLvlError('');
+      setEnLvlDirty(false);
+    }
+  };
+
+  const checkPDAgreementErrors = () => {
+    if (!PDAgreementInput.current?.checked) {
+      setPDAgreementError('Необходимо дать согласие на обработку персональных данных');
+    } else {
+      setPDAgreementError('');
+      setPDAgreementDirty(false);
+    }
+  };
+
+  const handlerInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     switch (e.target.name) {
       case 'name':
         nameDirty && checkNameErrors();
@@ -86,27 +118,112 @@ export const Forms = () => {
       case 'e-mail':
         eMailDirty && checkEMailErrors();
         break;
+      case 'enLvl':
+        enLvlDirty && checkEnLvlErrors();
+        break;
+      case 'PDAgreement':
+        PDAgreementDirty && checkPDAgreementErrors();
     }
+  };
+
+  const handlerFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setImage(String(ev.target?.result));
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h1>Формы</h1>
-      {nameDirty && nameError && <div className="error">{nameError}</div>}
+
+      {createInput(
+        'top',
+        'Ваше имя:',
+        'text',
+        'name',
+        nameDirty,
+        nameError,
+        nameInput,
+        handlerInputChange
+      )}
+
+      {createInput(
+        'top',
+        'Дата вашего рождения:',
+        'date',
+        'birthday',
+        birthDirty,
+        birthError,
+        birthdayInput,
+        handlerInputChange
+      )}
+
+      {createInput(
+        'top',
+        'Ваш e-mail:',
+        'text',
+        'e-mail',
+        eMailDirty,
+        eMailError,
+        eMailInput,
+        handlerInputChange
+      )}
+
+      {enLvlDirty && enLvlError && <div className="error">{enLvlError}</div>}
       <label>
-        Ваше имя:
-        <input onChange={handlerInputChange} type="text" name="name" ref={nameInput} />
+        Ваш уровень английского:
+        <select onChange={handlerInputChange} name="enLvl" ref={enLvlInput}>
+          <option value="notChosen">Выберете значение</option>
+          <option value="a0">Не изучал данный язык</option>
+          <option value="a1">(А1) – начальный</option>
+          <option value="a2">(А2) – ниже среднего</option>
+          <option value="b1">(В1) – средний</option>
+          <option value="b2">(В2) – выше среднего</option>
+          <option value="c1">(C1) – продвинутый</option>
+          <option value="c2">(C2) – профессиональный уровень владения</option>
+        </select>
       </label>
-      {birthDirty && birthError && <div className="error">{birthError}</div>}
+
+      {createInput(
+        'bottom',
+        'Даю согласие на обработку моих персональных данных',
+        'checkbox',
+        'PDAgreement',
+        PDAgreementDirty,
+        PDAgreementError,
+        PDAgreementInput,
+        handlerInputChange
+      )}
+
+      {/* Это должен быть switcher */}
       <label>
-        Дата вашего рождения:
-        <input onChange={handlerInputChange} type="date" name="birthday" ref={birthdayInput} />
+        <input
+          onChange={handlerInputChange}
+          type="checkbox"
+          name="subscription"
+          ref={subscriptionInput}
+        />
+        Я хочу получать уведомления о промоакциях
       </label>
-      {eMailDirty && eMailError && <div className="error">{eMailError}</div>}
+
       <label>
-        Ваш e-mail:
-        <input onChange={handlerInputChange} type="text" name="e-mail" ref={eMailInput} />
+        Прикрепите вашу фотографию
+        <input
+          onChange={handlerFileChange}
+          type="file"
+          name="picture"
+          ref={file}
+          accept="image/*,.png,.jpg,.gif,.web"
+        />
+        <img src={image} />
       </label>
+
       <input type="submit" value="submit" />
     </form>
   );

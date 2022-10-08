@@ -7,6 +7,8 @@ describe('Cards component', () => {
   it('Cards renders with all data', () => {
     render(<Cards gameList={gameList} />);
 
+    //
+
     expect(screen.getByText(/The Witcher/i)).toBeInTheDocument();
     expect(screen.getByText(/mass effect 2/i)).toBeInTheDocument();
     expect(screen.getByText(/NFS:/i)).toBeInTheDocument();

@@ -20,15 +20,7 @@ describe('Search component', () => {
     render(<Search />);
 
     userEvent.type(screen.getByRole('searchbox'), 'witcher');
-
     expect(screen.getByText(/The Witcher/i)).toBeInTheDocument();
     expect(screen.queryByText(/Mass/i)).toBeNull();
   });
-
-  // it('LocalStorage works', () => {
-  //   render(<Search />);
-
-  //   userEvent.type(screen.getByRole('searchbox'), 'witcher');
-
-  // })
 });
