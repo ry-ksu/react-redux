@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createInput } from './input';
+import { userList } from 'data/usersList';
 
 export const Forms = () => {
   const nameInput = useRef<HTMLInputElement>(null);
@@ -7,36 +8,118 @@ export const Forms = () => {
   const eMailInput = useRef<HTMLInputElement>(null);
   const enLvlInput = useRef<HTMLSelectElement>(null);
   const PDAgreementInput = useRef<HTMLInputElement>(null);
-  const subscriptionInput = useRef<HTMLInputElement>(null);
-  const file = useRef<HTMLInputElement>(null);
+  const maleInput = useRef<HTMLInputElement>(null);
+  const femaleInput = useRef<HTMLInputElement>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
+  const submitBtn = useRef<HTMLInputElement>(null);
 
   const [nameDirty, setNameDirty] = useState(false);
   const [birthDirty, setBirthDirty] = useState(false);
   const [eMailDirty, setEMailDirty] = useState(false);
   const [enLvlDirty, setEnLvlDirty] = useState(false);
   const [PDAgreementDirty, setPDAgreementDirty] = useState(false);
+  const [fileDirty, setFileDirty] = useState(false);
+  const [submitDirty, setSubmitDirty] = useState(false);
+  const [fileCode, setFileCode] = useState('');
 
   const [nameError, setNameError] = useState('');
   const [birthError, setBirthError] = useState('');
   const [eMailError, setEMailError] = useState('');
   const [enLvlError, setEnLvlError] = useState('');
   const [PDAgreementError, setPDAgreementError] = useState('');
+  const [fileError, setFileError] = useState('');
 
-  const [image, setImage] = useState('');
+  useEffect(() => {
+    if (submitBtn.current?.hasAttribute('useEffect')) {
+      checkSubmitDisabled();
+      addNewUser();
+    }
+  });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const addNewUser = () => {
+    if (
+      submitBtn.current?.hasAttribute('submitBtnClick') &&
+      !submitBtn.current?.hasAttribute('disabled') &&
+      nameInput.current?.value != null &&
+      birthdayInput.current?.value != null &&
+      eMailInput.current?.value != null &&
+      enLvlInput.current?.value != null &&
+      PDAgreementInput.current != null &&
+      maleInput.current != null &&
+      fileInput.current?.files != null
+    ) {
+      userList.push({
+        name: nameInput.current.value,
+        birthday: birthdayInput.current.value,
+        eMail: eMailInput.current.value,
+        enLvl: enLvlInput.current.value,
+        PDAgreement: true,
+        sex: femaleInput.current?.checked ? 'Жен.' : 'Муж.',
+        file: fileCode,
+      });
+
+      nameInput.current.value = '';
+      birthdayInput.current.value = '';
+      eMailInput.current.value = '';
+      enLvlInput.current.value = 'notChosen';
+      PDAgreementInput.current.checked = false;
+      maleInput.current.checked = true;
+      fileInput.current.value = '';
+      setFileCode('');
+
+      submitBtn.current.removeAttribute('useEffect');
+      submitBtn.current.setAttribute('disabled', '');
+
+      console.log(userList);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    submitBtn.current?.setAttribute('useEffect', '');
+    submitBtn.current?.setAttribute('submitBtnClick', '');
+
     e.preventDefault();
     setNameDirty(true);
     setBirthDirty(true);
     setEMailDirty(true);
     setEnLvlDirty(true);
     setPDAgreementDirty(true);
+    setFileDirty(true);
+
+    // Заставляю компонент перерисовываться, иначе
+    // не будет работать useEffect при корректном заполнении со 2+ раза
+    if (submitDirty) {
+      setSubmitDirty(false);
+    } else {
+      setSubmitDirty(true);
+    }
 
     checkNameErrors();
     checkBirthErrors();
     checkEMailErrors();
     checkEnLvlErrors();
     checkPDAgreementErrors();
+    checkFileErrors();
+  };
+
+  const checkSubmitDisabled = () => {
+    if (submitBtn.current == null) {
+      return;
+    }
+
+    if (
+      !nameDirty &&
+      !birthDirty &&
+      !eMailDirty &&
+      !enLvlDirty &&
+      !PDAgreementDirty &&
+      !fileDirty &&
+      (nameInput || birthdayInput || eMailInput || enLvlDirty || PDAgreementInput)
+    ) {
+      submitBtn.current.removeAttribute('disabled');
+    } else {
+      submitBtn.current.setAttribute('disabled', '');
+    }
   };
 
   const checkNameErrors = () => {
@@ -57,7 +140,7 @@ export const Forms = () => {
 
   const checkBirthErrors = () => {
     const yearMilliseconds = 24 * 60 * 60 * 1000 * 365;
-    const necessaryYearsOld = 45;
+    const necessaryYearsOld = 2;
     const birthValue = String(birthdayInput.current?.value);
 
     if (birthValue.length === 0) {
@@ -107,7 +190,17 @@ export const Forms = () => {
     }
   };
 
+  const checkFileErrors = () => {
+    if (fileInput.current?.files?.length === 0) {
+      setFileError('Необходимо загрузить фотографию');
+    } else {
+      setFileError('');
+      setFileDirty(false);
+    }
+  };
+
   const handlerInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    submitBtn.current?.removeAttribute('submitBtnClick');
     switch (e.target.name) {
       case 'name':
         nameDirty && checkNameErrors();
@@ -123,7 +216,11 @@ export const Forms = () => {
         break;
       case 'PDAgreement':
         PDAgreementDirty && checkPDAgreementErrors();
+        break;
+      case 'file':
+        fileDirty && checkFileErrors();
     }
+    checkSubmitDisabled();
   };
 
   const handlerFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,9 +230,11 @@ export const Forms = () => {
 
     const reader = new FileReader();
     reader.onload = (ev) => {
-      setImage(String(ev.target?.result));
+      setFileCode(String(ev.target?.result));
     };
     reader.readAsDataURL(e.target.files[0]);
+
+    handlerInputChange(e);
   };
 
   return (
@@ -201,30 +300,32 @@ export const Forms = () => {
         handlerInputChange
       )}
 
-      {/* Это должен быть switcher */}
-      <label>
-        <input
-          onChange={handlerInputChange}
-          type="checkbox"
-          name="subscription"
-          ref={subscriptionInput}
-        />
-        Я хочу получать уведомления о промоакциях
-      </label>
+      <p>
+        Ваш пол:
+        <label>
+          <input type="radio" name="sex" defaultChecked ref={maleInput} />
+          Муж.
+        </label>
+        <label>
+          <input type="radio" name="sex" ref={femaleInput} />
+          Жен.
+        </label>
+      </p>
 
+      {fileDirty && fileError && <div className="error">{fileError}</div>}
       <label>
         Прикрепите вашу фотографию
         <input
           onChange={handlerFileChange}
           type="file"
-          name="picture"
-          ref={file}
+          name="file"
+          ref={fileInput}
           accept="image/*,.png,.jpg,.gif,.web"
         />
-        <img src={image} />
+        <img src={fileCode} />
       </label>
 
-      <input type="submit" value="submit" />
+      <input type="submit" value="submit" disabled ref={submitBtn} />
     </form>
   );
 };
