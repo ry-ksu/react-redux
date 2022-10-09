@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { UserCards } from 'components/userCards';
 import { createInput } from './input';
-import { userList } from 'data/usersList';
+import { UserProps } from 'data/usersList';
 
-export const Forms = () => {
+type FormsProps = {
+  cards: UserProps[];
+  changeUserList: (list: UserProps[], item: UserProps) => void;
+};
+
+export const Forms = (props: FormsProps) => {
   const nameInput = useRef<HTMLInputElement>(null);
   const birthdayInput = useRef<HTMLInputElement>(null);
   const eMailInput = useRef<HTMLInputElement>(null);
@@ -48,7 +54,7 @@ export const Forms = () => {
       maleInput.current != null &&
       fileInput.current?.files != null
     ) {
-      userList.push({
+      props.changeUserList(props.cards, {
         name: nameInput.current.value,
         birthday: birthdayInput.current.value,
         eMail: eMailInput.current.value,
@@ -57,6 +63,15 @@ export const Forms = () => {
         sex: femaleInput.current?.checked ? 'Жен.' : 'Муж.',
         file: fileCode,
       });
+      // props.cards.push({
+      //   name: nameInput.current.value,
+      //   birthday: birthdayInput.current.value,
+      //   eMail: eMailInput.current.value,
+      //   enLvl: enLvlInput.current.value,
+      //   PDAgreement: true,
+      //   sex: femaleInput.current?.checked ? 'Жен.' : 'Муж.',
+      //   file: fileCode,
+      // });
 
       nameInput.current.value = '';
       birthdayInput.current.value = '';
@@ -69,8 +84,6 @@ export const Forms = () => {
 
       submitBtn.current.removeAttribute('useEffect');
       submitBtn.current.setAttribute('disabled', '');
-
-      console.log(userList);
     }
   };
 
@@ -238,94 +251,97 @@ export const Forms = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Формы</h1>
+    <>
+      <form onSubmit={handleSubmit}>
+        <h1>Формы</h1>
 
-      {createInput(
-        'top',
-        'Ваше имя:',
-        'text',
-        'name',
-        nameDirty,
-        nameError,
-        nameInput,
-        handlerInputChange
-      )}
+        {createInput(
+          'top',
+          'Ваше имя:',
+          'text',
+          'name',
+          nameDirty,
+          nameError,
+          nameInput,
+          handlerInputChange
+        )}
 
-      {createInput(
-        'top',
-        'Дата вашего рождения:',
-        'date',
-        'birthday',
-        birthDirty,
-        birthError,
-        birthdayInput,
-        handlerInputChange
-      )}
+        {createInput(
+          'top',
+          'Дата вашего рождения:',
+          'date',
+          'birthday',
+          birthDirty,
+          birthError,
+          birthdayInput,
+          handlerInputChange
+        )}
 
-      {createInput(
-        'top',
-        'Ваш e-mail:',
-        'text',
-        'e-mail',
-        eMailDirty,
-        eMailError,
-        eMailInput,
-        handlerInputChange
-      )}
+        {createInput(
+          'top',
+          'Ваш e-mail:',
+          'text',
+          'e-mail',
+          eMailDirty,
+          eMailError,
+          eMailInput,
+          handlerInputChange
+        )}
 
-      {enLvlDirty && enLvlError && <div className="error">{enLvlError}</div>}
-      <label>
-        Ваш уровень английского:
-        <select onChange={handlerInputChange} name="enLvl" ref={enLvlInput}>
-          <option value="notChosen">Выберете значение</option>
-          <option value="a0">Не изучал данный язык</option>
-          <option value="a1">(А1) – начальный</option>
-          <option value="a2">(А2) – ниже среднего</option>
-          <option value="b1">(В1) – средний</option>
-          <option value="b2">(В2) – выше среднего</option>
-          <option value="c1">(C1) – продвинутый</option>
-          <option value="c2">(C2) – профессиональный уровень владения</option>
-        </select>
-      </label>
-
-      {createInput(
-        'bottom',
-        'Даю согласие на обработку моих персональных данных',
-        'checkbox',
-        'PDAgreement',
-        PDAgreementDirty,
-        PDAgreementError,
-        PDAgreementInput,
-        handlerInputChange
-      )}
-
-      <p>
-        Ваш пол:
+        {enLvlDirty && enLvlError && <div className="error">{enLvlError}</div>}
         <label>
-          <input type="radio" name="sex" defaultChecked ref={maleInput} />
-          Муж.
+          Ваш уровень английского:
+          <select onChange={handlerInputChange} name="enLvl" ref={enLvlInput}>
+            <option value="notChosen">Выберете значение</option>
+            <option value="a0">Не изучал данный язык</option>
+            <option value="a1">(А1) – начальный</option>
+            <option value="a2">(А2) – ниже среднего</option>
+            <option value="b1">(В1) – средний</option>
+            <option value="b2">(В2) – выше среднего</option>
+            <option value="c1">(C1) – продвинутый</option>
+            <option value="c2">(C2) – профессиональный уровень владения</option>
+          </select>
         </label>
+
+        {createInput(
+          'bottom',
+          'Даю согласие на обработку моих персональных данных',
+          'checkbox',
+          'PDAgreement',
+          PDAgreementDirty,
+          PDAgreementError,
+          PDAgreementInput,
+          handlerInputChange
+        )}
+
+        <p>
+          Ваш пол:
+          <label>
+            <input type="radio" name="sex" defaultChecked ref={maleInput} />
+            Муж.
+          </label>
+          <label>
+            <input type="radio" name="sex" ref={femaleInput} />
+            Жен.
+          </label>
+        </p>
+
+        {fileDirty && fileError && <div className="error">{fileError}</div>}
         <label>
-          <input type="radio" name="sex" ref={femaleInput} />
-          Жен.
+          Прикрепите вашу фотографию
+          <input
+            onChange={handlerFileChange}
+            type="file"
+            name="file"
+            ref={fileInput}
+            accept="image/*,.png,.jpg,.gif,.web"
+          />
+          <img src={fileCode} />
         </label>
-      </p>
 
-      {fileDirty && fileError && <div className="error">{fileError}</div>}
-      <label>
-        Прикрепите вашу фотографию
-        <input
-          onChange={handlerFileChange}
-          type="file"
-          name="file"
-          ref={fileInput}
-          accept="image/*,.png,.jpg,.gif,.web"
-        />
-        <img src={fileCode} />
-      </label>
-
-      <input type="submit" value="submit" disabled ref={submitBtn} />
-    </form>
+        <input type="submit" value="submit" disabled ref={submitBtn} />
+      </form>
+      <UserCards cards={props.cards} />
+    </>
   );
 };
