@@ -13,21 +13,21 @@ export const createInput = (
   if (childrenLocation === 'top') {
     return (
       <>
-        {nameDirty && nameError && <div className="error">{nameError}</div>}
         <label>
           {children}
           <input onChange={handlerInputChange} type={type} name={name} ref={nameInput} />
         </label>
+        {nameDirty && nameError && <div className="error">{nameError}</div>}
       </>
     );
   } else {
     return (
       <>
-        {nameDirty && nameError && <div className="error">{nameError}</div>}
         <label>
           <input onChange={handlerInputChange} type={type} name={name} ref={nameInput} />
           {children}
         </label>
+        {nameDirty && nameError && <div className="error">{nameError}</div>}
       </>
     );
   }

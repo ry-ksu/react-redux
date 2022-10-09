@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserProps } from 'data/usersList';
+import style from './index.module.css';
 
 type UserCardProps = {
   cards: UserProps[];
@@ -7,24 +8,26 @@ type UserCardProps = {
 
 export const UserCards = (props: UserCardProps) => {
   return (
-    <div>
+    <div className={style.userCardsWrapper}>
       {props.cards.map((user) => (
-        <div key={user.eMail + user.birthday}>
+        <div className={style.userCard} key={user.eMail + user.birthday}>
           <img src={user.file} />
-          <div>
-            Имя: <strong>{user.name}</strong> ({user.sex})
-          </div>
-          <div>
-            Почта: <strong>{user.eMail}</strong>
-          </div>
-          <div>
-            Дата рождения: <strong>{user.birthday}</strong>
-          </div>
-          <div>
-            Уровень английского: <strong>{user.enLvl.toUpperCase()}</strong>
-          </div>
-          <div>
-            Согласие на обработку ПД: <strong>ДА</strong>
+          <div className={style.content}>
+            <h3>
+              {user.name} ({user.sex})
+            </h3>
+            <h5>
+              Почта: <strong>{user.eMail}</strong>
+            </h5>
+            <h5>
+              Дата рождения: <strong>{user.birthday}</strong>
+            </h5>
+            <h5>
+              Уровень английского: <strong>{user.enLvl.toUpperCase()}</strong>
+            </h5>
+            <h4>
+              Согласие на обработку ПД: <strong>ДА</strong>
+            </h4>
           </div>
         </div>
       ))}
