@@ -8,6 +8,7 @@ import './style.css';
 type FormsProps = {
   cards: UserProps[];
   changeUserList: (list: UserProps[], item: UserProps) => void;
+  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const Forms = (props: FormsProps) => {
@@ -66,6 +67,8 @@ export const Forms = (props: FormsProps) => {
         sex: femaleInput.current?.checked ? 'Жен.' : 'Муж.',
         file: fileCode,
       });
+
+      props.setModalActive(true);
 
       nameInput.current.value = '';
       birthdayInput.current.value = '';
