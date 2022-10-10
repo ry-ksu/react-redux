@@ -61,6 +61,7 @@ export class Search extends Component<SearchProps, SearchState> {
           <form>
             <button disabled></button>
             <input
+              data-testid="searchbox"
               type="search"
               value={inputSearch}
               placeholder="Найти игру..."

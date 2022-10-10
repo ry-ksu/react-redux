@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, getByRole } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import App from '.';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ describe('App component', () => {
     expect(getByTestId('pages/games')).toBeInTheDocument();
   });
 
-  test('switch page', async () => {
+  test('switch games/about page', async () => {
     const { getByTestId, getByText, findByTestId } = render(<App />, { wrapper: BrowserRouter });
 
     expect(getByTestId('pages/games')).toBeInTheDocument();
@@ -19,18 +19,27 @@ describe('App component', () => {
     fireEvent.click(getByText('Games'));
   });
 
+  test('switch games/forms pages', async () => {
+    const { getByTestId, getByText, findByTestId } = render(<App />, { wrapper: BrowserRouter });
+
+    expect(getByTestId('pages/games')).toBeInTheDocument();
+    fireEvent.click(getByText('Forms'));
+    expect(await findByTestId('pages/user-forms')).toBeInTheDocument();
+    fireEvent.click(getByText('Games'));
+  });
+
   test('check localStorage', async () => {
-    const { getByRole, getByText, getByTestId, findByRole, findByText } = render(<App />, {
+    const { getByText, getByTestId, findByText } = render(<App />, {
       wrapper: BrowserRouter,
     });
 
     expect(getByTestId('pages/games')).toBeInTheDocument();
-    fireEvent.change(getByRole('searchbox'), { target: { value: 'urodhngldh' } });
-    expect(getByRole('searchbox')).toHaveValue('urodhngldh');
-    expect(getByRole('searchbox')).not.toHaveValue('u5rodhngldh');
+    fireEvent.change(getByTestId('searchbox'), { target: { value: 'urodhngldh' } });
+    expect(getByTestId('searchbox')).toHaveValue('urodhngldh');
+    expect(getByTestId('searchbox')).not.toHaveValue('u5rodhngldh');
     fireEvent.click(getByText('About'));
     fireEvent.click(await findByText('Games'));
-    expect(await findByRole('searchbox')).toHaveValue('urodhngldh');
-    expect(await findByRole('searchbox')).not.toHaveValue('u5rodhngldh');
+    expect(getByTestId('searchbox')).toHaveValue('urodhngldh');
+    expect(getByTestId('searchbox')).not.toHaveValue('u5rodhngldh');
   });
 });

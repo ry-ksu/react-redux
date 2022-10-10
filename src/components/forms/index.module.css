@@ -42,13 +42,13 @@
   font-size: 14px;
 }
 
-.formWrapper input[type=text],
-.formWrapper input[type=date],
+.formWrapper input[type='text'],
+.formWrapper input[type='date'],
 .formWrapper select {
   height: 25px;
 }
 
-.formWrapper input[name=PDAgreement] {
+.formWrapper input[name='PDAgreement'] {
   margin-top: 60px;
 }
 
@@ -59,7 +59,7 @@
   padding-top: 10px;
 }
 
-.formWrapper input[type=submit] {
+.formWrapper input[type='submit'] {
   font-weight: 500;
   padding: 0;
   height: 40px;
@@ -71,10 +71,8 @@
   color: #ffffff;
 }
 
-.formWrapper input[type=submit]:disabled {
+.formWrapper input[type='submit']:disabled {
   background: rgb(225, 225, 225);
   border: solid 2px rgb(163, 163, 163);
   color: rgb(163, 163, 163);
 }
-
-
