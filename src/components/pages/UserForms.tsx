@@ -16,7 +16,7 @@ export const UserForms = () => {
   const modalContent = <p className="content">Данные успешно добавлены!</p>;
 
   return (
-    <div data-testid="pages/user-forms">
+    <div data-testid="pages/user-form">
       <Forms
         cards={userCardsUpdate}
         changeUserList={handlerChangeUserList}

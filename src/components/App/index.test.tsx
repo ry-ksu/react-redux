@@ -24,7 +24,7 @@ describe('App component', () => {
 
     expect(getByTestId('pages/games')).toBeInTheDocument();
     fireEvent.click(getByText('Forms'));
-    expect(await findByTestId('pages/user-forms')).toBeInTheDocument();
+    expect(await findByTestId('pages/user-form')).toBeInTheDocument();
     fireEvent.click(getByText('Games'));
   });
 

@@ -253,8 +253,9 @@ export const Forms = (props: FormsProps) => {
     <>
       <h1 className={styles.header}>Forms</h1>
       <div className={styles.formWrapper}>
-        <form onSubmit={handleSubmit}>
+        <form data-testid="user-form" onSubmit={handleSubmit}>
           {createInput(
+            'name',
             'top',
             'Ваше имя:',
             'text',
@@ -266,6 +267,7 @@ export const Forms = (props: FormsProps) => {
           )}
 
           {createInput(
+            'birthday',
             'top',
             'Дата вашего рождения:',
             'date',
@@ -277,6 +279,7 @@ export const Forms = (props: FormsProps) => {
           )}
 
           {createInput(
+            'e-mail',
             'top',
             'Ваш e-mail:',
             'text',
@@ -328,6 +331,7 @@ export const Forms = (props: FormsProps) => {
           {fileDirty && fileError && <div className="error">{fileError}</div>}
 
           {createInput(
+            'PDAgreement',
             'bottom',
             'Даю согласие на обработку моих персональных данных',
             'checkbox',
@@ -338,7 +342,13 @@ export const Forms = (props: FormsProps) => {
             handlerInputChange
           )}
 
-          <input type="submit" value="Отправить форму" disabled ref={submitBtn} />
+          <input
+            data-testid="user-form__submit-btn"
+            type="submit"
+            value="Отправить форму"
+            disabled
+            ref={submitBtn}
+          />
         </form>
       </div>
       <UserCards cards={props.cards} />

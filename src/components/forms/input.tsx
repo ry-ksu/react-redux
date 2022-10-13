@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const createInput = (
+  dataTestId: string,
   childrenLocation: 'top' | 'bottom',
   children: string,
   type: string,
@@ -15,7 +16,13 @@ export const createInput = (
       <>
         <label>
           {children}
-          <input onChange={handlerInputChange} type={type} name={name} ref={nameInput} />
+          <input
+            data-testid={dataTestId}
+            onChange={handlerInputChange}
+            type={type}
+            name={name}
+            ref={nameInput}
+          />
         </label>
         {nameDirty && nameError && <div className="error">{nameError}</div>}
       </>
@@ -24,7 +31,13 @@ export const createInput = (
     return (
       <>
         <label>
-          <input onChange={handlerInputChange} type={type} name={name} ref={nameInput} />
+          <input
+            data-testid={dataTestId}
+            onChange={handlerInputChange}
+            type={type}
+            name={name}
+            ref={nameInput}
+          />
           {children}
         </label>
         {nameDirty && nameError && <div className="error">{nameError}</div>}
