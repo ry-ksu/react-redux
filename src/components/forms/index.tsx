@@ -1,14 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { UserCards } from 'components/userCards';
 import { createInput } from './input';
 import { UserProps } from 'data/usersList';
 import styles from './index.module.css';
 import './style.css';
 
 type FormsProps = {
-  cards: UserProps[];
-  changeUserList: (list: UserProps[], item: UserProps) => void;
-  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmit: (card: UserProps) => void;
 };
 
 export const Forms = (props: FormsProps) => {
@@ -58,7 +55,7 @@ export const Forms = (props: FormsProps) => {
       maleInput.current != null &&
       fileInput.current?.files != null
     ) {
-      props.changeUserList(props.cards, {
+      props.onSubmit({
         name: nameInput.current.value,
         birthday: birthdayInput.current.value,
         eMail: eMailInput.current.value,
@@ -67,8 +64,6 @@ export const Forms = (props: FormsProps) => {
         sex: femaleInput.current?.checked ? 'Жен.' : 'Муж.',
         file: fileCode,
       });
-
-      props.setModalActive(true);
 
       nameInput.current.value = '';
       birthdayInput.current.value = '';
@@ -292,7 +287,7 @@ export const Forms = (props: FormsProps) => {
 
           <label>
             Ваш уровень английского:
-            <select onChange={handlerInputChange} name="enLvl" ref={enLvlInput}>
+            <select data-testid="enLvl" onChange={handlerInputChange} name="enLvl" ref={enLvlInput}>
               <option value="notChosen">Выберете значение</option>
               <option value="a0">Не изучал данный язык</option>
               <option value="a1">(А1) – начальный</option>
@@ -320,6 +315,7 @@ export const Forms = (props: FormsProps) => {
           <label>
             Прикрепите вашу фотографию:
             <input
+              data-testid="file"
               onChange={handlerFileChange}
               type="file"
               name="file"
@@ -343,7 +339,7 @@ export const Forms = (props: FormsProps) => {
           )}
 
           <input
-            data-testid="user-form__submit-btn"
+            data-testid="user-form/submit-btn"
             type="submit"
             value="Отправить форму"
             disabled
@@ -351,7 +347,6 @@ export const Forms = (props: FormsProps) => {
           />
         </form>
       </div>
-      <UserCards cards={props.cards} />
     </>
   );
 };

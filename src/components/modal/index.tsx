@@ -3,13 +3,17 @@ import './index.css';
 
 type ModalProps = {
   active: boolean;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  onClick: () => void;
   content: ReactNode;
 };
 
 export const Modal = (props: ModalProps): JSX.Element => {
   return (
-    <div className={props.active ? 'modal_active' : 'modal'} onClick={() => props.setActive(false)}>
+    <div
+      data-testid="modal"
+      className={props.active ? 'modal_active' : 'modal'}
+      onClick={props.onClick}
+    >
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         {props.content}
       </div>

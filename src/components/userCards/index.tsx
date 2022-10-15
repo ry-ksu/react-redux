@@ -10,7 +10,11 @@ export const UserCards = (props: UserCardProps) => {
   return (
     <div className={style.userCardsWrapper}>
       {props.cards.map((user) => (
-        <div className={style.userCard} key={user.eMail + user.birthday}>
+        <div
+          data-testid="pages/user-card"
+          className={style.userCard}
+          key={user.eMail + user.birthday}
+        >
           <img src={user.file} />
           <div className={style.content}>
             <h3>
