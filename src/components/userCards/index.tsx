@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserProps } from 'data/usersList';
+import { UserProps } from 'types';
 import style from './index.module.css';
 
 type UserCardProps = {

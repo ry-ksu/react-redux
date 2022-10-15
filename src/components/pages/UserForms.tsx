@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Forms } from 'components/forms';
 import { UserCards } from 'components/userCards';
 import { Modal } from '../modal';
-import { UserProps, userList } from '../../data/usersList';
+import { UserProps } from 'types';
 
 export const UserForms = () => {
-  const [userCardsUpdate, setUserCardsUpdate] = useState(userList);
+  const [userCardsUpdate, setUserCardsUpdate] = useState<UserProps[]>([]);
   const [modalActive, setModalActive] = useState(false);
 
   const handleSubmit = (card: UserProps) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createInput } from './input';
-import { UserProps } from 'data/usersList';
+import { UserProps } from 'types';
 import styles from './index.module.css';
 import './style.css';
 
@@ -197,7 +197,6 @@ export const Forms = (props: FormsProps) => {
   };
 
   const checkFileErrors = () => {
-    console.log(fileInput.current?.files);
     if (fileInput.current?.files?.length === 0) {
       setFileError('Необходимо загрузить фотографию');
     } else {

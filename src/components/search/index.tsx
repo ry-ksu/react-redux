@@ -1,24 +1,20 @@
-import React, { Component, useState } from 'react';
-import { Cards } from '../cards';
+import React, { useState } from 'react';
 import { axiosGet } from 'services/api';
+import { IArticles } from 'types';
 
-import styles from './index.module.css';
+// import styles from './index.module.css';
 
-type SearchProp = {
-  setArticles: React.Dispatch<React.SetStateAction<string[]>>;
+type ISearchProp = {
+  onSubmit: (article: IArticles[]) => void;
 };
 
-// type SearchProps = Record<string, never>;
-
-export const Search = () => {
+export const Search = (prop: ISearchProp) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await axiosGet(inputValue);
-    console.log(result.articles);
-    // console.log('ddd');
-    // prop.setArticles(result.articles);
+    prop.onSubmit(result.articles);
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
