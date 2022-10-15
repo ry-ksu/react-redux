@@ -1,6 +1,6 @@
 import React from 'react';
 import { IArticles } from 'types';
-
+import styles from './index.module.css';
 type IAPICards = {
   articles: IArticles[];
 };
@@ -8,16 +8,22 @@ type IAPICards = {
 export const APICards = (prop: IAPICards) => {
   console.log(prop.articles[0], 'daf');
   return (
-    <div className="news-cards">
-      {prop.articles.map((article, i) => (
-        <div key={i} className={'news-card ' + i}>
-          <img src={article.urlToImage} alt="news image" />
-          <p className="news-source">{article.source.name}</p>
-          <h3>{article.title}</h3>
-          <p className="news-description">{article.description}</p>
-          <p className="news-date">{new Date(article.publishedAt).toLocaleString().slice(0, -3)}</p>
-        </div>
-      ))}
+    <div className={styles.cardsWrapper}>
+      <div className={styles.newsCards}>
+        {prop.articles.map((article, i) => (
+          <div key={i} className={styles.newsCard + ' ' + i}>
+            <img src={article.urlToImage} alt="news image" />
+            <div className={styles.newsSource}>{article.source.name}</div>
+            <div className={styles.newsContent}>
+              <h3>{article.title}</h3>
+              <p className={styles.newsDescription}>{article.description}</p>
+              <p className={styles.newsDate}>
+                {new Date(article.publishedAt).toLocaleString().slice(0, -3)}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

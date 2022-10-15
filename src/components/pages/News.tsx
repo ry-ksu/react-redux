@@ -3,7 +3,7 @@ import { Search } from 'components/search';
 import { IArticles } from 'types';
 import { APICards } from 'components/APICards';
 
-export const Games = () => {
+export const News = () => {
   const [articles, setArticles] = useState<IArticles[]>([]);
 
   const onSubmit = (newArticle: IArticles[]) => {
@@ -11,7 +11,7 @@ export const Games = () => {
   };
 
   return (
-    <div data-testid="pages/games">
+    <div data-testid="pages/news">
       <Search onSubmit={onSubmit} />
       <APICards articles={articles} />
     </div>
