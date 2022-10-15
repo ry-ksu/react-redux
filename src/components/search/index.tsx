@@ -10,7 +10,7 @@ type SearchProp = {
 
 // type SearchProps = Record<string, never>;
 
-export const Search = (prop: SearchProp) => {
+export const Search = () => {
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,7 +18,7 @@ export const Search = (prop: SearchProp) => {
     const result = await axiosGet(inputValue);
     console.log(result.articles);
     // console.log('ddd');
-    prop.setArticles(result.articles);
+    // prop.setArticles(result.articles);
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
