@@ -8,6 +8,8 @@ export const UserForms = () => {
   const [userCardsUpdate, setUserCardsUpdate] = useState<UserProps[]>([]);
   const [modalActive, setModalActive] = useState(false);
 
+  const status = 'form-info';
+
   const handleSubmit = (card: UserProps) => {
     setModalActive(true);
     setUserCardsUpdate([...userCardsUpdate, card]);
@@ -17,13 +19,20 @@ export const UserForms = () => {
     setModalActive(false);
   };
 
-  const modalContent = <p className="content">Данные успешно добавлены!</p>;
+  const modalContent = () => {
+    return <p className="content">Данные успешно добавлены!</p>;
+  };
 
   return (
     <div data-testid="pages/user-form">
       <Forms onSubmit={handleSubmit} />
       <UserCards cards={userCardsUpdate} />
-      <Modal active={modalActive} onClick={handleOnClickModal} content={modalContent} />
+      <Modal
+        status={status}
+        active={modalActive}
+        onClick={handleOnClickModal}
+        content={modalContent}
+      />
     </div>
   );
 };

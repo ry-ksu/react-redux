@@ -1,5 +1,5 @@
 .cardsWrapper {
-  background: #fafafa;
+  background: #eceef2;
   min-height: calc(100vh - 242px);
 }
 
@@ -10,13 +10,12 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
 }
 
 .newsCard {
   position: relative;
   background: #fff;
-  border: solid 2px rgb(60, 57, 232);
   border-radius: 20px;
   width: 290px;
   height: 420px;
