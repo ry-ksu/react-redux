@@ -10,11 +10,8 @@ type IAPICards = {
 };
 
 export const APICards = (prop: IAPICards) => {
-  console.log(prop.articles[0], 'daf');
-
   const firstSearch = 'Пожалуйста, введите запрос...';
   const notData = 'Новости по данному запросу еще не написаны. Попробуйте другой запрос.';
-  const loading = 'Загрузка...';
 
   const warningForFirstSearch = (warning: string) => {
     return (
@@ -28,7 +25,6 @@ export const APICards = (prop: IAPICards) => {
     <div className={styles.cardsWrapper}>
       <div className={styles.newsCards}>
         {prop.isLoad === 1 && warningForFirstSearch(firstSearch)}
-        {/* {prop.isLoad === 2 && warningForFirstSearch(loading)} */}
         {prop.isLoad === 3 && prop.articles.length === 0 && warningForFirstSearch(notData)}
 
         {prop.articles.map((article, i) => (

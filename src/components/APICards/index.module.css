@@ -74,8 +74,8 @@
   font-size: 15px;
   color: rgb(76, 76, 76);
   position: absolute;
-	right: 0;
-	bottom: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .newsContent h3 {
@@ -89,5 +89,3 @@
   font-size: 15px;
   color: rgb(72, 72, 72);
 }
-
-

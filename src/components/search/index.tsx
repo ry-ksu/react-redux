@@ -22,7 +22,6 @@ export const Search = (prop: ISearchProp) => {
       return;
     }
     prop.onSubmit(result.articles);
-    console.log(result);
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
