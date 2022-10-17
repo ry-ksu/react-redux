@@ -1,7 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { IArticles } from 'types';
 import styles from './index.module.css';
+
 type IAPICards = {
+  isLoad: number;
   articles: IArticles[];
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
@@ -9,12 +11,30 @@ type IAPICards = {
 export const APICards = (prop: IAPICards) => {
   console.log(prop.articles[0], 'daf');
 
+  const firstSearch = 'Пожалуйста, введите запрос...';
+  const notData = 'Новости по данному запросу еще не написаны. Попробуйте другой запрос.';
+  const loading = 'Загрузка...';
+
+  const warningForFirstSearch = (warning: string) => {
+    return (
+      <div className={styles.warning}>
+        <p>{warning}</p>
+      </div>
+    );
+  };
+
   return (
     <div className={styles.cardsWrapper}>
       <div className={styles.newsCards}>
+        {prop.isLoad === 1 && warningForFirstSearch(firstSearch)}
+        {prop.isLoad === 2 && warningForFirstSearch(loading)}
+        {prop.isLoad === 3 && prop.articles.length === 0 && warningForFirstSearch(notData)}
+
         {prop.articles.map((article, i) => (
           <div key={i} onClick={(e) => prop.onClick(e)} className={styles.newsCard + ' ' + i}>
-            <img src={article.urlToImage} alt="news image" />
+            <div className={styles.imgWrapper}>
+              <img src={article.urlToImage} alt="news image" />
+            </div>
             <div className={styles.newsSource}>{article.source.name}</div>
             <div className={styles.newsContent}>
               <h3>{article.title}</h3>

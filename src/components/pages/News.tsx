@@ -7,6 +7,7 @@ import { Modal } from 'components/modal';
 export const News = () => {
   const [articles, setArticles] = useState<IArticles[]>([]);
   const [modalActive, setModalActive] = useState(false);
+  const [dataIsLoad, setDataIsLoad] = useState(1);
   const [articleActive, setArticleActive] = useState<IArticles>();
 
   const status = 'article';
@@ -39,6 +40,11 @@ export const News = () => {
 
   const onSubmit = (newArticles: IArticles[]) => {
     setArticles(newArticles);
+    setDataIsLoad(3);
+  };
+
+  const loading = () => {
+    setDataIsLoad(2);
   };
 
   const onClick = () => {
@@ -53,8 +59,8 @@ export const News = () => {
 
   return (
     <div data-testid="pages/news">
-      <Search onSubmit={onSubmit} />
-      <APICards articles={articles} onClick={onClickCard} />
+      <Search loading={loading} onSubmit={onSubmit} />
+      <APICards isLoad={dataIsLoad} articles={articles} onClick={onClickCard} />
       <Modal status={status} active={modalActive} onClick={onClick} content={cardContent} />
     </div>
   );

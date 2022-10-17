@@ -5,6 +5,7 @@ import { IArticles } from 'types';
 import styles from './index.module.css';
 
 type ISearchProp = {
+  loading: () => void;
   onSubmit: (article: IArticles[]) => void;
 };
 
@@ -13,7 +14,13 @@ export const Search = (prop: ISearchProp) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    prop.onSubmit([]);
+    prop.loading();
     const result = await axiosGet(inputValue);
+    if (!result) {
+      prop.onSubmit([]);
+      return;
+    }
     prop.onSubmit(result.articles);
     console.log(55);
   };
