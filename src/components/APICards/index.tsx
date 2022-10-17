@@ -31,7 +31,12 @@ export const APICards = (prop: IAPICards) => {
         {prop.isLoad === 3 && prop.articles.length === 0 && warningForFirstSearch(notData)}
 
         {prop.articles.map((article, i) => (
-          <div key={i} onClick={(e) => prop.onClick(e)} className={styles.newsCard + ' ' + i}>
+          <div
+            data-testid="news/card"
+            key={i}
+            onClick={(e) => prop.onClick(e)}
+            className={styles.newsCard + ' ' + i}
+          >
             <div className={styles.imgWrapper}>
               <img src={article.urlToImage} alt="news image" />
             </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { axiosGet } from 'services/api';
+import { axiosGet } from 'services';
 import { IArticles } from 'types';
 
 import styles from './index.module.css';
@@ -22,7 +22,7 @@ export const Search = (prop: ISearchProp) => {
       return;
     }
     prop.onSubmit(result.articles);
-    console.log(55);
+    console.log(result);
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,8 +37,9 @@ export const Search = (prop: ISearchProp) => {
       <h1 className={styles.pageName}>News</h1>
       <div className={styles.search}>
         <form onSubmit={handleSubmit}>
-          <button></button>
+          <button data-testid="news/search-btn"></button>
           <input
+            data-testid="news/search"
             type="search"
             value={inputValue}
             placeholder="Search news..."
