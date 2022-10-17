@@ -47,14 +47,14 @@ describe('Page has correct warning', () => {
     expect(await findByText(/Новости по данному запросу еще не написаны/i)).toBeInTheDocument();
   });
 
-  test('Page has "Загрузка..." warning', () => {
+  test('Page has loader', () => {
     // Рендерим компонент
     // Обозначаем данные, возвращаемые API (здесть возвращаемое значение неважно)
     // Вводим поисковую фразу
     // Сабмитим
     // Не ожидаем ответа от сервера
     // Проверяем наличие текста
-    const { getByTestId, getByText } = render(<News />);
+    const { getByTestId } = render(<News />);
 
     axios.get = jest.fn().mockResolvedValue({
       data: null,
@@ -62,7 +62,7 @@ describe('Page has correct warning', () => {
 
     fireEvent.change(getByTestId('news/search'), { target: { value: 'hgkfnghgkifhngh' } });
     fireEvent.click(getByTestId('news/search-btn'));
-    expect(getByText('Загрузка...')).toBeInTheDocument();
+    expect(getByTestId('loader').classList.contains('loader_active')).toBe(true);
   });
 });
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { IArticles } from 'types';
+import { Loader } from 'components/loader';
 import styles from './index.module.css';
 
 type IAPICards = {
@@ -27,7 +28,7 @@ export const APICards = (prop: IAPICards) => {
     <div className={styles.cardsWrapper}>
       <div className={styles.newsCards}>
         {prop.isLoad === 1 && warningForFirstSearch(firstSearch)}
-        {prop.isLoad === 2 && warningForFirstSearch(loading)}
+        {/* {prop.isLoad === 2 && warningForFirstSearch(loading)} */}
         {prop.isLoad === 3 && prop.articles.length === 0 && warningForFirstSearch(notData)}
 
         {prop.articles.map((article, i) => (
@@ -51,6 +52,7 @@ export const APICards = (prop: IAPICards) => {
           </div>
         ))}
       </div>
+      <Loader isLoading={prop.isLoad} />
     </div>
   );
 };
