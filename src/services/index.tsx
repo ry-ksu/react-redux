@@ -1,21 +1,28 @@
 import axios from 'axios';
 
-const url = 'https://newsapi.org/v2/everything?';
-const API_KEY = '01572784a1f94ab2b4a331a9d6cf302b';
+const url = 'https://api.rawg.io/api/games';
+const API_KEY = 'c5e92c5eb5ea462a8da8cff455452d29';
 
-export const axiosGet = (q: string, page = 1, sortBy = 'popularity', pageSize = 15) => {
-  if (q.length === 0) {
+export const axiosGet = (
+  search: string,
+  page = 1,
+  page_size = 15,
+  ordering = '-rating',
+  search_precise = true
+) => {
+  if (search.length === 0) {
     return;
   }
+
   return axios
-    .get(`${url}q=${q}`, {
+    .get(`${url}`, {
       params: {
-        sortBy,
-        pageSize,
+        search,
+        key: API_KEY,
+        ordering,
+        page_size,
         page,
-      },
-      headers: {
-        Authorization: API_KEY,
+        search_precise,
       },
     })
     .then((response) => response.data)

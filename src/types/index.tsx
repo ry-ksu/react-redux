@@ -8,13 +8,15 @@ export type UserProps = {
   file: string;
 };
 
-export type IArticles = {
-  author: string;
-  content: string;
-  description: string;
-  publishedAt: string;
-  source: { id: null | string; name: string };
-  title: string;
-  url: string;
-  urlToImage: string;
+export type IGame = {
+  background_image: string;
+  esrb_rating: { id: number; name: string; slug: string; name_en: string; name_ru: string };
+  name: string;
+  rating: number;
+  released: string;
+  genres: {
+    id: number;
+    name: string;
+    slug: string;
+  }[];
 };

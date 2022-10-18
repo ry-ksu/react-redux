@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Search } from 'components/search';
-import { IArticles } from 'types';
+import { IGame } from 'types';
 import { APICards } from 'components/APICards';
 import { Modal } from 'components/modal';
 
 export const News = () => {
-  const [articles, setArticles] = useState<IArticles[]>([]);
+  const [articles, setArticles] = useState<IGame[]>([]);
   const [modalActive, setModalActive] = useState(false);
   const [dataIsLoad, setDataIsLoad] = useState(1);
-  const [articleActive, setArticleActive] = useState<IArticles>();
+  const [articleActive, setArticleActive] = useState<IGame>();
 
   const status = 'article';
 
@@ -19,26 +19,24 @@ export const News = () => {
     return (
       <div className="article-card">
         <div className="article-card__content_left">
-          <img src={articleActive.urlToImage} alt="article image"></img>
-          <p className="article-card__source">
-            {articleActive.source.name}, {articleActive.author}
-          </p>
-          <a className="article-card__url" href={articleActive.url}>
+          <img src={articleActive.background_image} alt="article image"></img>
+          <p className="article-card__source">{articleActive.rating}</p>
+          {/* <a className="article-card__url" href={articleActive.url}>
             Перейти в источник
-          </a>
+          </a> */}
         </div>
         <div className="article-card__content_right">
-          <h2 className="article-card__header">{articleActive.title}</h2>
-          <p className="article_card__content">{articleActive.content}</p>
+          <h2 className="article-card__header">{articleActive.name}</h2>
+          {/* <p className="article_card__content">{articleActive.content}</p> */}
           <p className="article-card__date">
-            {new Date(articleActive.publishedAt).toLocaleString().slice(0, -3)}
+            {new Date(articleActive.released).toLocaleString().slice(0, -3)}
           </p>
         </div>
       </div>
     );
   };
 
-  const onSubmit = (newArticles: IArticles[]) => {
+  const onSubmit = (newArticles: IGame[]) => {
     setArticles(newArticles);
     setDataIsLoad(3);
   };

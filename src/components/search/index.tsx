@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { axiosGet } from 'services';
-import { IArticles } from 'types';
+import { IGame } from 'types';
 
 import styles from './index.module.css';
 
 type ISearchProp = {
   loading: () => void;
-  onSubmit: (article: IArticles[]) => void;
+  onSubmit: (article: IGame[]) => void;
 };
 
 export const Search = (prop: ISearchProp) => {
@@ -21,7 +21,8 @@ export const Search = (prop: ISearchProp) => {
       prop.onSubmit([]);
       return;
     }
-    prop.onSubmit(result.articles);
+    console.log(result);
+    prop.onSubmit(result.results);
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

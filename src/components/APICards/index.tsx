@@ -1,11 +1,11 @@
 import React from 'react';
-import { IArticles } from 'types';
+import { IGame } from 'types';
 import { Loader } from 'components/loader';
 import styles from './index.module.css';
 
 type IAPICards = {
   isLoad: number;
-  articles: IArticles[];
+  articles: IGame[];
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 
@@ -35,14 +35,13 @@ export const APICards = (prop: IAPICards) => {
             className={styles.newsCard + ' ' + i}
           >
             <div className={styles.imgWrapper}>
-              <img src={article.urlToImage} alt="news image" />
+              <img src={article.background_image} alt="news image" />
             </div>
-            <div className={styles.newsSource}>{article.source.name}</div>
+            <div className={styles.newsSource}>{article.rating}</div>
             <div className={styles.newsContent}>
-              <h3>{article.title}</h3>
-              <p className={styles.newsDescription}>{article.description}</p>
+              <h3>{article.name}</h3>
               <p className={styles.newsDate}>
-                {new Date(article.publishedAt).toLocaleString().slice(0, -3)}
+                {new Date(article.released).toLocaleString().slice(0, -3)}
               </p>
             </div>
           </div>
