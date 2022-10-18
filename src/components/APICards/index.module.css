@@ -5,19 +5,19 @@
 
 .warning {
   background: #fff;
-  width: 400px;
+  width: 370px;
   height: 100px;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 50px;
+  padding: 0 60px;
   text-align: center;
   font-size: 16px;
   color: rgb(76, 76, 76);
 }
 
-.newsCards {
+.gamesCards {
   max-width: 1200px;
   margin: auto;
   padding: 30px 5px;
@@ -27,7 +27,7 @@
   gap: 15px;
 }
 
-.newsCard {
+.gamesCard {
   position: relative;
   background: #fff;
   border-radius: 20px;
@@ -41,13 +41,13 @@
   width: 100%;
 }
 
-.newsCard img {
+.gamesCard img {
   height: 165px;
   width: 100%;
   border-radius: 20px;
 }
 
-.newsSource {
+.gameRating {
   position: absolute;
   top: 148px;
   right: 20px;
@@ -61,7 +61,7 @@
   padding: 5px 10px 0;
 }
 
-.newsContent {
+.gameContent {
   margin-top: 20px;
   position: relative;
   position: relative;
@@ -70,22 +70,15 @@
   height: 80px;
 }
 
-.newsContent .newsDate {
+.gameContent .gameReleased {
   font-size: 15px;
   color: rgb(76, 76, 76);
   position: absolute;
-  left: 0;
+  right: 0;
   bottom: 0;
 }
 
-.newsContent h3 {
+.gameContent h3 {
   font-size: 20px;
   color: rgb(26, 26, 26);
-}
-
-.newsContent .newsDescription {
-  text-align: justify;
-  margin-top: 10px;
-  font-size: 15px;
-  color: rgb(72, 72, 72);
 }

@@ -17,7 +17,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
     >
       <div
         className={
-          props.status === 'form-info' ? 'modal__content_form-info' : 'modal__content_article'
+          props.status === 'form-info' ? 'modal__content_form-info' : 'modal__content_game'
         }
         onClick={(e) => e.stopPropagation()}
       >

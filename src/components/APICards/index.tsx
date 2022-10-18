@@ -5,15 +5,15 @@ import styles from './index.module.css';
 
 type IAPICards = {
   isLoad: number;
-  articles: IGame[];
+  games: IGame[];
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 
 export const APICards = (prop: IAPICards) => {
   const firstSearch = 'Пожалуйста, введите запрос...';
-  const notData = 'Новости по данному запросу еще не написаны. Попробуйте другой запрос.';
+  const notData = 'Игры по данному запросу еще не созданы. Попробуйте другой запрос.';
 
-  const warningForFirstSearch = (warning: string) => {
+  const warningForSearch = (warning: string) => {
     return (
       <div className={styles.warning}>
         <p>{warning}</p>
@@ -23,25 +23,25 @@ export const APICards = (prop: IAPICards) => {
 
   return (
     <div className={styles.cardsWrapper}>
-      <div className={styles.newsCards}>
-        {prop.isLoad === 1 && warningForFirstSearch(firstSearch)}
-        {prop.isLoad === 3 && prop.articles.length === 0 && warningForFirstSearch(notData)}
+      <div className={styles.gamesCards}>
+        {prop.isLoad === 1 && warningForSearch(firstSearch)}
+        {prop.isLoad === 3 && prop.games.length === 0 && warningForSearch(notData)}
 
-        {prop.articles.map((article, i) => (
+        {prop.games.map((game, i) => (
           <div
-            data-testid="news/card"
+            data-testid="games/card"
             key={i}
             onClick={(e) => prop.onClick(e)}
-            className={styles.newsCard + ' ' + i}
+            className={styles.gamesCard + ' ' + i}
           >
             <div className={styles.imgWrapper}>
-              <img src={article.background_image} alt="news image" />
+              <img src={game.background_image} alt="game image" />
             </div>
-            <div className={styles.newsSource}>{article.rating}</div>
-            <div className={styles.newsContent}>
-              <h3>{article.name}</h3>
-              <p className={styles.newsDate}>
-                {new Date(article.released).toLocaleString().slice(0, -3)}
+            <div className={styles.gameRating}>{game.rating}</div>
+            <div className={styles.gameContent}>
+              <h3>{game.name}</h3>
+              <p className={styles.gameReleased}>
+                Дата релиза: {new Date(game.released).toLocaleString().slice(0, -10)}
               </p>
             </div>
           </div>

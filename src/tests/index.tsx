@@ -1,38 +1,66 @@
 export const dataForThreeCards = {
-  status: 'ok',
-  articles: [
+  results: [
     {
-      author: 'Luna',
-      content: 'Luna content',
-      description: 'Luna description',
-      publishedAt: '2022-10-02T19:05:25Z',
-      source: { id: 'Luna_id', name: 'Luna_name' },
-      title: 'Luna title',
-      url: 'https://lenta.ru/news/2022/10/02/norway_prisoner/',
-      urlToImage:
+      background_image:
         'https://icdn.lenta.ru/images/2022/10/02/22/20221002220508886/share_0c5750cf6c95c6f1358c8014bb3bb212.jpg',
+      esrb_rating: {
+        id: 1,
+        name: 'Mature',
+        slug: 'mature',
+        name_en: 'Mature',
+        name_ru: 'С 17 лет',
+      },
+      name: 'The Witcher 2: Assassins of Kings',
+      rating: 4.34,
+      released: '2011-05-17',
+      genres: [
+        {
+          id: 5,
+          name: 'RPG',
+          slug: 'role-playing-games-rpg',
+        },
+      ],
     },
     {
-      author: 'Liza',
-      content: 'Liza content',
-      description: 'Liza description',
-      publishedAt: '2022-10-03T19:05:25Z',
-      source: { id: 'Liza_id', name: 'Liza_name' },
-      title: 'Liza title',
-      url: 'https://lenta.ru/news/2022/10/02/norway_prisoner/',
-      urlToImage:
+      background_image:
         'https://icdn.lenta.ru/images/2022/10/02/22/20221002220508886/share_0c5750cf6c95c6f1358c8014bb3bb212.jpg',
+      esrb_rating: {
+        id: 1,
+        name: 'Mature',
+        slug: 'mature',
+        name_en: 'Mature',
+        name_ru: 'С 17 лет',
+      },
+      name: 'The Witcher 3',
+      rating: 4.35,
+      released: '2011-05-20',
+      genres: [
+        {
+          id: 5,
+          name: 'RPG',
+          slug: 'role-playing-games-rpg',
+        },
+        {
+          id: 5,
+          name: 'RPG',
+          slug: 'role-playing-games-rpg',
+        },
+      ],
     },
     {
-      author: 'Luis',
-      content: 'Luis content',
-      description: 'Luis description',
-      publishedAt: '2022-10-05T19:05:25Z',
-      source: { id: 'Luis_id', name: 'Luis_name' },
-      title: 'Luis title',
-      url: 'https://lenta.ru/news/2022/10/02/norway_prisoner/',
-      urlToImage:
+      background_image:
         'https://icdn.lenta.ru/images/2022/10/02/22/20221002220508886/share_0c5750cf6c95c6f1358c8014bb3bb212.jpg',
+      esrb_rating: {
+        id: 1,
+        name: 'Mature',
+        slug: 'mature',
+        name_en: 'Mature',
+        name_ru: 'С 17 лет',
+      },
+      name: 'The Witcher',
+      rating: 4.45,
+      released: '2011-05-25',
+      genres: [],
     },
   ],
 };

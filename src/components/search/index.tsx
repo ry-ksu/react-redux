@@ -6,7 +6,7 @@ import styles from './index.module.css';
 
 type ISearchProp = {
   loading: () => void;
-  onSubmit: (article: IGame[]) => void;
+  onSubmit: (game: IGame[]) => void;
 };
 
 export const Search = (prop: ISearchProp) => {
@@ -21,7 +21,6 @@ export const Search = (prop: ISearchProp) => {
       prop.onSubmit([]);
       return;
     }
-    console.log(result);
     prop.onSubmit(result.results);
   };
 
@@ -34,15 +33,15 @@ export const Search = (prop: ISearchProp) => {
 
   return (
     <>
-      <h1 className={styles.pageName}>News</h1>
+      <h1 className={styles.pageName}>Games</h1>
       <div className={styles.search}>
         <form onSubmit={handleSubmit}>
-          <button data-testid="news/search-btn"></button>
+          <button data-testid="games/search-btn"></button>
           <input
-            data-testid="news/search"
+            data-testid="games/search"
             type="search"
             value={inputValue}
-            placeholder="Search news..."
+            placeholder="Search games..."
             onChange={changeInput}
           />
         </form>
