@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createInput } from './input';
 import { UserProps } from 'types';
+import { useForm } from 'react-hook-form';
 import styles from './index.module.css';
 import './style.css';
 
@@ -9,6 +10,12 @@ type FormsProps = {
 };
 
 export const Forms = (props: FormsProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const nameInput = useRef<HTMLInputElement>(null);
   const birthdayInput = useRef<HTMLInputElement>(null);
   const eMailInput = useRef<HTMLInputElement>(null);
@@ -80,33 +87,33 @@ export const Forms = (props: FormsProps) => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    submitBtn.current?.setAttribute('useEffect', '');
-    submitBtn.current?.setAttribute('submitBtnClick', '');
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   submitBtn.current?.setAttribute('useEffect', '');
+  //   submitBtn.current?.setAttribute('submitBtnClick', '');
 
-    e.preventDefault();
-    setNameDirty(true);
-    setBirthDirty(true);
-    setEMailDirty(true);
-    setEnLvlDirty(true);
-    setPDAgreementDirty(true);
-    setFileDirty(true);
+  //   e.preventDefault();
+  //   setNameDirty(true);
+  //   setBirthDirty(true);
+  //   setEMailDirty(true);
+  //   setEnLvlDirty(true);
+  //   setPDAgreementDirty(true);
+  //   setFileDirty(true);
 
-    // Заставляю компонент перерисовываться, иначе
-    // не будет работать useEffect при корректном заполнении со 2+ раза
-    if (submitDirty) {
-      setSubmitDirty(false);
-    } else {
-      setSubmitDirty(true);
-    }
+  //   // Заставляю компонент перерисовываться, иначе
+  //   // не будет работать useEffect при корректном заполнении со 2+ раза
+  //   if (submitDirty) {
+  //     setSubmitDirty(false);
+  //   } else {
+  //     setSubmitDirty(true);
+  //   }
 
-    checkNameErrors();
-    checkBirthErrors();
-    checkEMailErrors();
-    checkEnLvlErrors();
-    checkPDAgreementErrors();
-    checkFileErrors();
-  };
+  //   checkNameErrors();
+  //   checkBirthErrors();
+  //   checkEMailErrors();
+  //   checkEnLvlErrors();
+  //   checkPDAgreementErrors();
+  //   checkFileErrors();
+  // };
 
   const checkSubmitDisabled = () => {
     if (submitBtn.current == null) {
@@ -248,8 +255,13 @@ export const Forms = (props: FormsProps) => {
     <>
       <h1 className={styles.header}>Forms</h1>
       <div className={styles.formWrapper}>
-        <form data-testid="user-form" onSubmit={handleSubmit}>
-          {createInput(
+        <form
+          data-testid="user-form"
+          onSubmit={handleSubmit((data) => {
+            console.log(data);
+          })}
+        >
+          {/* {createInput(
             'name',
             'top',
             'Ваше имя:',
@@ -259,8 +271,19 @@ export const Forms = (props: FormsProps) => {
             nameError,
             nameInput,
             handlerInputChange
-          )}
+          )} */}
 
+          <label>
+            Ваше имя:
+            <input
+              data-testid="name"
+              // onChange={handlerInputChange}
+              type="text"
+              {...register('name', { required: true, minLength: 4 })}
+              ref={nameInput}
+            />
+          </label>
+          {nameDirty && nameError && <div className="error">{nameError}</div>}
           {createInput(
             'birthday',
             'top',
