@@ -18,7 +18,7 @@ export const UserCards = (props: UserCardProps) => {
           <img src={user.file} />
           <div className={style.content}>
             <h3>
-              {user.name} ({user.sex})
+              {user.name} ({user.gender})
             </h3>
             <h5>
               Почта: <strong>{user.eMail}</strong>

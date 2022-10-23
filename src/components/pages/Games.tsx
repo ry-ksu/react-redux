@@ -64,7 +64,7 @@ export const Games = () => {
     <div data-testid="pages/games">
       <Search loading={loading} onSubmit={onSubmit} />
       <APICards isLoad={dataIsLoad} games={games} onClick={onClickCard} />
-      <Modal status={status} active={modalActive} onClick={onClick} content={cardContent} />
+      {modalActive && <Modal status={status} onClick={onClick} content={cardContent} />}
     </div>
   );
 };

@@ -20,19 +20,14 @@ export const UserForms = () => {
   };
 
   const modalContent = () => {
-    return <p className="content">Данные успешно добавлены!</p>;
+    return <p className="content">Data added successfully!</p>;
   };
 
   return (
     <div data-testid="pages/user-form">
       <Forms onSubmit={handleSubmit} />
       <UserCards cards={userCardsUpdate} />
-      <Modal
-        status={status}
-        active={modalActive}
-        onClick={handleOnClickModal}
-        content={modalContent}
-      />
+      {modalActive && <Modal status={status} onClick={handleOnClickModal} content={modalContent} />}
     </div>
   );
 };

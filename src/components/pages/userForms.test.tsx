@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import { UserForms } from './UserForms';
 
 afterEach(() => {
@@ -19,60 +19,60 @@ describe('UserForms fields tests', () => {
     expect(getByTestId('user-form/submit-btn').getAttribute('disabled')).toBeNull();
   });
 
-  test('Check name error', () => {
+  test('Check name error', async () => {
     // Рендерим компонент
     // Изменяем поле name
     // Проверяем, что ошибки нет
     // Сабмитим
     // Проверяем, что ошибка появилась
-    const { getByTestId, queryByText, getByText } = render(<UserForms />);
+    const { getByTestId, queryByText, findByText } = render(<UserForms />);
 
     fireEvent.change(getByTestId('name'), { target: { value: 't' } });
-    expect(queryByText('Имя не может состоять из одной буквы')).toBeNull();
+    expect(queryByText('Min length is 2')).toBeNull();
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(getByText('Имя не может состоять из одной буквы')).toBeDefined();
+    expect(await findByText('Min length is 2')).toBeDefined();
   });
 
-  test('Check birthday error', () => {
+  test('Check birthday error', async () => {
     // Рендерим компонент
     // Изменяем поле birthday
     // Проверяем, что ошибки нет
     // Сабмитим
     // Проверяем, что ошибка появилась
-    const { getByTestId, queryByText, getByText } = render(<UserForms />);
+    const { getByTestId, queryByText, findByText } = render(<UserForms />);
 
-    fireEvent.change(getByTestId('birthday'), { target: { value: '2032-10-04' } });
-    expect(queryByText('К сожалению, вы еще не родились')).toBeNull();
+    fireEvent.change(getByTestId('name'), { target: { value: 't' } });
+    expect(queryByText('Birthday is required')).toBeNull();
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(getByText('К сожалению, вы еще не родились')).toBeDefined();
+    expect(await findByText('Birthday is required')).toBeDefined();
   });
 
-  test('Check e-mail error', () => {
+  test('Check e-mail error', async () => {
     // Рендерим компонент
     // Изменяем поле e-mail
     // Проверяем, что ошибки нет
     // Сабмитим
     // Проверяем, что ошибка появилась
-    const { getByTestId, queryByText, getByText } = render(<UserForms />);
+    const { getByTestId, queryByText, findByText } = render(<UserForms />);
 
-    fireEvent.change(getByTestId('e-mail'), { target: { value: 't' } });
-    expect(queryByText('Проверьте корректность введенной почты')).toBeNull();
+    fireEvent.change(getByTestId('eMail'), { target: { value: 't' } });
+    expect(queryByText('Check validation e-mail')).toBeNull();
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(getByText('Проверьте корректность введенной почты')).toBeDefined();
+    expect(await findByText('Check validation e-mail')).toBeDefined();
   });
 
-  test('Check enLvl error', () => {
+  test('Check enLvl error', async () => {
     // Рендерим компонент
     // Изменяем поле name, так как при изменении enLvl ошибки не может быть
     // Проверяем, что ошибки нет
     // Сабмитим
     // Проверяем, что ошибка появилась
-    const { getByTestId, queryByText, getByText } = render(<UserForms />);
+    const { getByTestId, queryByText, findByText } = render(<UserForms />);
 
     fireEvent.change(getByTestId('name'), { target: { value: 't' } });
-    expect(queryByText('Необходимо выбрать уровень английского языка')).toBeNull();
+    expect(queryByText('English level is required')).toBeNull();
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(getByText('Необходимо выбрать уровень английского языка')).toBeDefined();
+    expect(await findByText('English level is required')).toBeDefined();
   });
 
   test('Check enLvl not error', () => {
@@ -84,21 +84,24 @@ describe('UserForms fields tests', () => {
 
     fireEvent.change(getByTestId('enLvl'), { target: { value: 'a2' } });
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(queryByText('Необходимо выбрать уровень английского языка')).toBeNull();
+    //! Тест стал бессмысленным
+    // Возможно ли асинхронно проверить отсутствие чего-то
+    // Если при findByText возвращается ошибка?
+    expect(queryByText('English level is required')).toBeNull();
   });
 
-  test('Check file error', () => {
+  test('Check file error', async () => {
     // Рендерим компонент
     // Изменяем поле name, так как при изменении file ошибки не может быть
     // Проверяем, что ошибки нет
     // Сабмитим
     // Проверяем, что ошибка появилась
-    const { getByTestId, queryByText, getByText } = render(<UserForms />);
+    const { getByTestId, queryByText, findByText } = render(<UserForms />);
 
     fireEvent.change(getByTestId('name'), { target: { value: 't' } });
-    expect(queryByText('Необходимо загрузить фотографию')).toBeNull();
+    expect(queryByText('Photo is required')).toBeNull();
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(getByText('Необходимо загрузить фотографию')).toBeDefined();
+    expect(await findByText('Photo is required')).toBeDefined();
   });
 
   test('Check file"s adding ', () => {
@@ -114,21 +117,24 @@ describe('UserForms fields tests', () => {
       },
     });
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(queryByText('Необходимо загрузить фотографию')).toBeNull();
+    //! Тест стал бессмысленным
+    // Возможно ли асинхронно проверить отсутствие чего-то
+    // Если при findByText возвращается ошибка?
+    expect(queryByText('Photo is required')).toBeNull();
   });
 
-  test('Check PDAgreement error', () => {
+  test('Check PDAgreement error', async () => {
     // Рендерим компонент
     // Изменяем поле name, так как при PDAgreement ошибки не может быть
     // Проверяем, что ошибки нет
     // Сабмитим
     // Проверяем, что ошибка появилась
-    const { getByTestId, queryByText, getByText } = render(<UserForms />);
+    const { getByTestId, queryByText, findByText } = render(<UserForms />);
 
     fireEvent.change(getByTestId('name'), { target: { value: 't' } });
-    expect(queryByText('Необходимо дать согласие на обработку персональных данных')).toBeNull();
+    expect(queryByText('Agreement is required')).toBeNull();
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(getByText('Необходимо дать согласие на обработку персональных данных')).toBeDefined();
+    expect(await findByText('Agreement is required')).toBeDefined();
   });
 
   test('Check PDAgreement not error', () => {
@@ -140,27 +146,30 @@ describe('UserForms fields tests', () => {
 
     fireEvent.change(getByTestId('PDAgreement'), { target: { checked: true } });
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(queryByText('Необходимо загрузить фотографию')).toBeNull();
+    //! Тест стал бессмысленным
+    // Возможно ли асинхронно проверить отсутствие чего-то
+    // Если при findByText возвращается ошибка?
+    expect(queryByText('Photo is required')).toBeNull();
   });
 });
 
 describe('Modal tests', () => {
   // Как вынести повторяющиеся части с заполнением данных?
 
-  test('add modal from the first time', () => {
+  test('add modal from the first time', async () => {
     // Рендерим компонент
     // Проверяем, что модальное окна не отображается (имеет класс со свойством display: none)
     // Корректно заполняем данные
     // Сабмитим
     // Проверяем, что появилось модальное окно
 
-    const { getByTestId } = render(<UserForms />);
+    const { getByTestId, findByText, queryByTestId } = render(<UserForms />);
 
-    expect(getByTestId('modal').classList.contains('modal')).toBe(true);
+    expect(queryByTestId('modal')).toBeNull();
 
     fireEvent.change(getByTestId('name'), { target: { value: 'Nina' } });
     fireEvent.change(getByTestId('birthday'), { target: { value: '2012-10-04' } });
-    fireEvent.change(getByTestId('e-mail'), { target: { value: 'nina@mail.ru' } });
+    fireEvent.change(getByTestId('eMail'), { target: { value: 'nina@mail.ru' } });
     fireEvent.change(getByTestId('enLvl'), { target: { value: 'a2' } });
     fireEvent.change(getByTestId('file'), {
       target: {
@@ -170,7 +179,9 @@ describe('Modal tests', () => {
     fireEvent.change(getByTestId('PDAgreement'), { target: { checked: true } });
 
     fireEvent.click(getByTestId('user-form/submit-btn'));
-    expect(getByTestId('modal').classList.contains('modal_active')).toBe(true);
+    // expect(await findByTestId('modal')).toBeInTheDocument();
+    expect(await findByText('Data added successfully!')).toBeDefined();
+    // expect((await findByTestId('modal')).classList.contains('modal_active')).toBe(true);
   });
 
   test('add modal from the second time', () => {
@@ -189,7 +200,7 @@ describe('Modal tests', () => {
 
     fireEvent.change(getByTestId('name'), { target: { value: 5 } });
     fireEvent.change(getByTestId('birthday'), { target: { value: '2012-10-04' } });
-    fireEvent.change(getByTestId('e-mail'), { target: { value: 'nina@mail.ru' } });
+    fireEvent.change(getByTestId('eMail'), { target: { value: 'nina@mail.ru' } });
     fireEvent.change(getByTestId('enLvl'), { target: { value: 'a2' } });
     fireEvent.change(getByTestId('file'), {
       target: {
@@ -224,7 +235,7 @@ describe('Modal tests', () => {
 
     fireEvent.change(getByTestId('name'), { target: { value: 5 } });
     fireEvent.change(getByTestId('birthday'), { target: { value: '2012-10-04' } });
-    fireEvent.change(getByTestId('e-mail'), { target: { value: 'nina@mail.ru' } });
+    fireEvent.change(getByTestId('eMail'), { target: { value: 'nina@mail.ru' } });
     fireEvent.change(getByTestId('enLvl'), { target: { value: 'a2' } });
     fireEvent.change(getByTestId('file'), {
       target: {
@@ -254,7 +265,7 @@ describe('Modal tests', () => {
 
     fireEvent.change(getByTestId('name'), { target: { value: 'Lev' } });
     fireEvent.change(getByTestId('birthday'), { target: { value: '2012-10-04' } });
-    fireEvent.change(getByTestId('e-mail'), { target: { value: 'nina@mail.ru' } });
+    fireEvent.change(getByTestId('eMail'), { target: { value: 'nina@mail.ru' } });
     fireEvent.change(getByTestId('enLvl'), { target: { value: 'a2' } });
     fireEvent.change(getByTestId('file'), {
       target: {
@@ -302,7 +313,7 @@ describe('UserCards test', () => {
     const addDataAndSubmit = (i: number) => {
       fireEvent.change(getByTestId('name'), { target: { value: 'Moris' } });
       fireEvent.change(getByTestId('birthday'), { target: { value: '2012-10-04' } });
-      fireEvent.change(getByTestId('e-mail'), { target: { value: `moris${i}@mail.ru` } });
+      fireEvent.change(getByTestId('eMail'), { target: { value: `moris${i}@mail.ru` } });
       fireEvent.change(getByTestId('enLvl'), { target: { value: 'a2' } });
       fireEvent.change(getByTestId('file'), {
         target: {

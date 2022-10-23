@@ -117,7 +117,7 @@ describe('Modal is open/closed', () => {
     // Нажимаем на область вне модального окна
     // Проверяем, что модальное окно закрыто
 
-    const { getByTestId, findAllByTestId } = render(<Games />);
+    const { getByTestId, findAllByTestId, queryByTestId } = render(<Games />);
 
     axios.get = jest.fn().mockResolvedValue({
       data: dataForThreeCards,
@@ -128,6 +128,6 @@ describe('Modal is open/closed', () => {
     fireEvent.click((await findAllByTestId('games/card'))[0]);
     expect(getByTestId('modal').classList.contains('modal_active')).toBe(true);
     fireEvent.click(getByTestId('modal'));
-    expect(getByTestId('modal').classList.contains('modal')).toBe(true);
+    expect(queryByTestId('modal')).toBeNull();
   });
 });

@@ -4,7 +4,7 @@ export type UserProps = {
   eMail: string;
   enLvl: string;
   PDAgreement: boolean;
-  sex: string;
+  gender: string;
   file: string;
 };
 

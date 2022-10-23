@@ -53,7 +53,7 @@ export const About = () => {
 
   return (
     <div data-testid="pages/about">
-      <h1>About us</h1>
+      <h1>Forms</h1>
       <form onSubmit={handleSubmit((data) => onSubmit(data))}>
         <label>
           Your name:
@@ -77,7 +77,11 @@ export const About = () => {
 
         <label>
           Your date of birthday:
-          <input type="date" {...register('birthday', { required: 'This is required' })} />
+          <input
+            data-testid="birthday"
+            type="date"
+            {...register('birthday', { required: 'This is required' })}
+          />
         </label>
         <p>{errors.birthday && String(errors.birthday.message)}</p>
 
@@ -140,8 +144,12 @@ export const About = () => {
         <p>{errors.file && String(errors.file.message)}</p>
 
         <label>
-          <input type="checkbox" {...register('PDAgreement', { required: 'This is required' })} />I
-          consent to the processing of my personal data.
+          <input
+            data-testid="PDAgreement"
+            type="checkbox"
+            {...register('PDAgreement', { required: 'This is required' })}
+          />
+          I consent to the processing of my personal data.
         </label>
         <p>{errors.PDAgreement && String(errors.PDAgreement.message)}</p>
 
