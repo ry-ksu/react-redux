@@ -75,7 +75,7 @@ export const Forms = (prop: IFormsProps) => {
               {...register('name', {
                 required: 'Name is required',
                 pattern: {
-                  value: /^[A-Za-z]+$/i,
+                  value: /^[A-Za-zА-Яа-я]+$/i,
                   message: 'Name must not include numbers',
                 },
                 minLength: {
