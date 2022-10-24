@@ -20,3 +20,13 @@ export type IGame = {
     slug: string;
   }[];
 };
+
+export type IFormData = {
+  name: string;
+  birthday: string;
+  eMail: string;
+  enLvl: string;
+  gender: string;
+  file: string;
+  PDAgreement: boolean;
+};
