@@ -3,8 +3,10 @@ import { Search } from 'components/search';
 import { IGame } from 'types';
 import { APICards } from 'components/APICards';
 import { Modal } from 'components/modal';
+// import { gameState } from 'reducer';
 
 export const Games = () => {
+  // const [state, dispatch] = useReducer(gameState, []);
   const [games, setGames] = useState<IGame[]>([]);
   const [modalActive, setModalActive] = useState(false);
   const [dataIsLoad, setDataIsLoad] = useState(1);

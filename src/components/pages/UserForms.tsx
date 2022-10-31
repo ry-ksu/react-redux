@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Forms } from 'components/forms';
-import { UserCards } from 'components/userCards';
+// import { UserCards } from 'components/userCards';
 import { Modal } from '../modal';
 import { UserProps } from 'types';
+// import { formState } from 'reducer';
+// import { defaultState } from 'components/App';
+
+import { AppContext } from 'components/App';
 
 export const UserForms = () => {
-  const [userCardsUpdate, setUserCardsUpdate] = useState<UserProps[]>([]);
+  // const [state, dispatch] = useReducer(formState, defaultState);
+  const state = useContext(AppContext);
+  const dispatch = useContext(AppContext);
   const [modalActive, setModalActive] = useState(false);
+
+  console.log('dkfjs:', state, dispatch);
 
   const status = 'form-info';
 
   const handleSubmit = (card: UserProps) => {
     setModalActive(true);
-    setUserCardsUpdate([...userCardsUpdate, card]);
+    dispatch({
+      type: 'add',
+      payload: card,
+    });
   };
 
   const handleOnClickModal = () => {
@@ -26,7 +37,7 @@ export const UserForms = () => {
   return (
     <div data-testid="pages/user-form">
       <Forms onSubmit={handleSubmit} />
-      <UserCards cards={userCardsUpdate} />
+      {/* <UserCards /> */}
       {modalActive && <Modal status={status} onClick={handleOnClickModal} content={modalContent} />}
     </div>
   );

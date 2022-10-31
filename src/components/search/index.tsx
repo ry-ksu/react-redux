@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { axiosGet } from 'services';
 import { IGame } from 'types';
+// import { searchState } from 'reducer';
 
 import styles from './index.module.css';
 
@@ -10,6 +11,7 @@ type ISearchProp = {
 };
 
 export const Search = (prop: ISearchProp) => {
+  // const [state, dispatch] = useReducer(searchState, []);
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -22,3 +22,7 @@
   color: rgb(235, 143, 255);
   border-bottom: 2px solid rgb(235, 143, 255);
 }
+
+.headerWrapper .active-link {
+  color: red;
+}
