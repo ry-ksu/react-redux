@@ -1,19 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserProps } from '../../types';
+import { IFormData } from '../../types';
+import { Field } from 'components/field';
 
 import styles from './index.module.css';
 import './style.css';
-
-type IFormData = {
-  name: string;
-  birthday: string;
-  eMail: string;
-  enLvl: string;
-  gender: string;
-  file: string;
-  PDAgreement: boolean;
-};
 
 type IFormsProps = {
   onSubmit: (card: UserProps) => void;
@@ -67,12 +59,15 @@ export const Forms = (prop: IFormsProps) => {
       <h1 className={styles.header}>Forms</h1>
       <div className={styles.formWrapper}>
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-          <label>
-            Name:
-            <input
-              data-testid="name"
+          {
+            <Field
+              register={register}
+              errors={errors}
+              label="Name *"
+              name="name"
               type="text"
-              {...register('name', {
+              order={true}
+              options={{
                 required: 'Name is required',
                 pattern: {
                   value: /^[A-Za-zА-Яа-я]+$/i,
@@ -82,39 +77,44 @@ export const Forms = (prop: IFormsProps) => {
                   value: 2,
                   message: 'Min length is 2',
                 },
-              })}
+              }}
             />
-          </label>
-          <p className="error">{errors.name && String(errors.name.message)}</p>
+          }
 
-          <label>
-            Date of birthday:
-            <input
-              data-testid="birthday"
+          {
+            <Field
+              register={register}
+              errors={errors}
+              label="Date of birthday *"
+              name="birthday"
               type="date"
-              {...register('birthday', { required: 'Birthday is required' })}
+              order={true}
+              options={{
+                required: 'Birthday is required',
+              }}
             />
-          </label>
-          <p className="error">{errors.birthday && String(errors.birthday.message)}</p>
+          }
 
-          <label>
-            E-mail:
-            <input
-              data-testid="eMail"
+          {
+            <Field
+              register={register}
+              errors={errors}
+              label="E-mail *"
+              name="eMail"
               type="text"
-              {...register('eMail', {
+              order={true}
+              options={{
                 required: 'E-mail is required',
                 pattern: {
                   value: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
                   message: 'Check validation e-mail',
                 },
-              })}
+              }}
             />
-          </label>
-          <p className="error">{errors.eMail && String(errors.eMail.message)}</p>
+          }
 
           <label>
-            English level:
+            English level *
             <select
               data-testid="enLvl"
               {...register('enLvl', { required: 'English level is required' })}
@@ -132,7 +132,7 @@ export const Forms = (prop: IFormsProps) => {
           <p className="error">{errors.enLvl && String(errors.enLvl.message)}</p>
 
           <p>
-            Gender:
+            Gender
             <label>
               <input type="radio" value="male" {...register('gender')} defaultChecked />
               Male
@@ -144,7 +144,7 @@ export const Forms = (prop: IFormsProps) => {
           </p>
 
           <label>
-            Photo:
+            Photo *
             <input
               data-testid="file"
               type="file"
@@ -158,15 +158,19 @@ export const Forms = (prop: IFormsProps) => {
           </label>
           <p className="error">{errors.file && String(errors.file.message)}</p>
 
-          <label>
-            <input
-              data-testid="PDAgreement"
+          {
+            <Field
+              register={register}
+              errors={errors}
+              label="I consent to the processing of my personal data. *"
+              name="PDAgreement"
               type="checkbox"
-              {...register('PDAgreement', { required: 'Agreement is required' })}
+              order={false}
+              options={{
+                required: 'Agreement is required',
+              }}
             />
-            I consent to the processing of my personal data.
-          </label>
-          <p className="error">{errors.PDAgreement && String(errors.PDAgreement.message)}</p>
+          }
 
           <input
             data-testid="user-form/submit-btn"

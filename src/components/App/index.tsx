@@ -19,7 +19,7 @@ type IState = {
   userCards: IFormData[];
 };
 
-export const defaultState: IState = {
+const defaultState: IState = {
   userCards: [],
 };
 
