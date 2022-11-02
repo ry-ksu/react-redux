@@ -1,22 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Forms } from 'components/forms';
-// import { UserCards } from 'components/userCards';
+import { UserCards } from 'components/userCards';
 import { Modal } from '../modal';
 import { UserProps } from 'types';
-// import { formState } from 'reducer';
-// import { defaultState } from 'components/App';
-
-import { AppContext } from 'components/App';
+import { useGlobalContext } from 'components/App';
+import { UserFormModalContent } from 'components/modal/userFormModalContent';
 
 export const UserForms = () => {
-  // const [state, dispatch] = useReducer(formState, defaultState);
-  const state = useContext(AppContext);
-  const dispatch = useContext(AppContext);
+  const { dispatch } = useGlobalContext();
   const [modalActive, setModalActive] = useState(false);
 
-  console.log('dkfjs:', state, dispatch);
-
-  const status = 'form-info';
+  const status = 'modal_user-form';
 
   const handleSubmit = (card: UserProps) => {
     setModalActive(true);
@@ -25,20 +19,17 @@ export const UserForms = () => {
       payload: card,
     });
   };
-
   const handleOnClickModal = () => {
     setModalActive(false);
-  };
-
-  const modalContent = () => {
-    return <p className="content">Data added successfully!</p>;
   };
 
   return (
     <div data-testid="pages/user-form">
       <Forms onSubmit={handleSubmit} />
-      {/* <UserCards /> */}
-      {modalActive && <Modal status={status} onClick={handleOnClickModal} content={modalContent} />}
+      <UserCards />
+      {modalActive && (
+        <Modal status={status} onClick={handleOnClickModal} content={UserFormModalContent} />
+      )}
     </div>
   );
 };

@@ -1,9 +1,4 @@
-import { IFormData } from './types';
-
-type IAction = {
-  type: string;
-  payload: IFormData;
-};
+import { IFormData, IAction } from './types';
 
 type IState = {
   userCards: IFormData[];

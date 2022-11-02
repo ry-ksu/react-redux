@@ -30,3 +30,8 @@ export type IFormData = {
   file: string;
   PDAgreement: boolean;
 };
+
+export type IAction = {
+  type: string;
+  payload: IFormData;
+};
