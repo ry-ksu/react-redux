@@ -2,12 +2,15 @@ import React from 'react';
 import './style.css';
 
 type ILoaderProps = {
-  isLoading: number;
+  isLoading: string;
 };
 
 export const Loader = (props: ILoaderProps) => {
   return (
-    <div data-testid="loader" className={props.isLoading === 2 ? 'loader_active' : 'loader'}>
+    <div
+      data-testid="loader"
+      className={props.isLoading === 'loading' ? 'loader_active' : 'loader'}
+    >
       <div className="loader__img"></div>
     </div>
   );

@@ -1,0 +1,14 @@
+.cardsWrapper {
+  background: #eceef2;
+  min-height: calc(100vh - 242px);
+}
+
+.gamesCards {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 5px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}

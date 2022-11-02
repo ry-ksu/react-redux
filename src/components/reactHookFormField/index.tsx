@@ -17,7 +17,7 @@ type IFieldTypes = {
   options?: Record<string, unknown>;
 };
 
-export const Field = (prop: IFieldTypes) => {
+export const ReactHookFormField = (prop: IFieldTypes) => {
   return (
     <>
       <label>

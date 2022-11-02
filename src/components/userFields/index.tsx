@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserProps } from '../../types';
-import { IFormData } from '../../types';
-import { Field } from 'components/field';
 
+import { ReactHookFormField } from '../reactHookFormField';
+
+import { UserProps, IFormData } from '../../types';
 import styles from './index.module.css';
 import './style.css';
 
@@ -11,7 +11,7 @@ type IFormsProps = {
   onSubmit: (card: UserProps) => void;
 };
 
-export const Forms = (prop: IFormsProps) => {
+export const UserFields = (prop: IFormsProps) => {
   const imgInput = useRef<HTMLImageElement>(null);
   const [fileCode, setFileCode] = useState('');
 
@@ -60,7 +60,7 @@ export const Forms = (prop: IFormsProps) => {
       <div className={styles.formWrapper}>
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>
           {
-            <Field
+            <ReactHookFormField
               register={register}
               errors={errors}
               label="Name *"
@@ -82,7 +82,7 @@ export const Forms = (prop: IFormsProps) => {
           }
 
           {
-            <Field
+            <ReactHookFormField
               register={register}
               errors={errors}
               label="Date of birthday *"
@@ -96,7 +96,7 @@ export const Forms = (prop: IFormsProps) => {
           }
 
           {
-            <Field
+            <ReactHookFormField
               register={register}
               errors={errors}
               label="E-mail *"
@@ -159,7 +159,7 @@ export const Forms = (prop: IFormsProps) => {
           <p className="error">{errors.file && String(errors.file.message)}</p>
 
           {
-            <Field
+            <ReactHookFormField
               register={register}
               errors={errors}
               label="I consent to the processing of my personal data. *"

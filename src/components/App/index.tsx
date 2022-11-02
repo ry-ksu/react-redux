@@ -1,42 +1,52 @@
 import { Routes, Route } from 'react-router-dom';
 import React, { createContext, useReducer, useContext } from 'react';
 
+import { Layout } from '../layout';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { About } from '../pages/About';
-import { Layout } from '../layout';
 import { Games } from '../pages/Games';
 import { UserForms } from '../pages/UserForms';
 
-import { IFormData, IAction } from '../../types';
-import { formState } from 'reducer';
+import { IUserState, IFormAction, ISearchAction, IGameState } from '../../types';
+import { formState, searchState } from 'reducer';
 
-type GlobalContent = {
-  state: IState;
-  dispatch: (obj: IAction) => void;
-};
-
-type IState = {
-  userCards: IFormData[];
-};
-
-const defaultState: IState = {
+// start code for GlobalState
+const defaultUserState: IUserState = {
   userCards: [],
 };
 
-export const AppContext = createContext<GlobalContent>({
-  state: {
-    userCards: [],
-  },
-  dispatch: () => {},
+const defaultGameState: IGameState = {
+  gamesCards: [],
+  ordering: '-rating',
+  page: 1,
+  page_size: 15,
+  chosenGame: null,
+  isLoaded: 'not loaded',
+};
+
+type GlobalContent = {
+  userState: IUserState;
+  userDispatch: (obj: IFormAction) => void;
+  gamesState: IGameState;
+  gameDispatch: (obj: ISearchAction) => void;
+};
+
+const AppContext = createContext<GlobalContent>({
+  userState: defaultUserState,
+  userDispatch: () => {},
+  gamesState: defaultGameState,
+  gameDispatch: () => {},
 });
 
 export const useGlobalContext = () => useContext(AppContext);
+// end code for GlobalState
 
 function App() {
-  const [state, dispatch] = useReducer(formState, defaultState);
+  const [userState, userDispatch] = useReducer(formState, defaultUserState);
+  const [gamesState, gameDispatch] = useReducer(searchState, defaultGameState);
 
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
+    <AppContext.Provider value={{ userState, userDispatch, gamesState, gameDispatch }}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Games />} />

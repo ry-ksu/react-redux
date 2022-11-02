@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+
 import styles from './index.module.css';
 
 const setActive = ({ isActive }: { isActive: boolean }) => (isActive ? styles['active-link'] : '');

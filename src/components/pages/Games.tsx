@@ -1,72 +1,73 @@
 import React, { useState } from 'react';
-import { Search } from 'components/search';
-import { IGame } from 'types';
-import { APICards } from 'components/APICards';
-import { Modal } from 'components/modal';
-// import { gameState } from 'reducer';
+
+import { GameSearch } from '../gameSearch';
+import { GameList } from '../gameList';
+import { Modal } from '../modal';
+import { useGlobalContext } from '../App';
+import { GameCard } from '../gameCard';
+
+import { IGame } from '../../types';
 
 export const Games = () => {
-  // const [state, dispatch] = useReducer(gameState, []);
-  const [games, setGames] = useState<IGame[]>([]);
+  const { gamesState, gameDispatch } = useGlobalContext();
   const [modalActive, setModalActive] = useState(false);
-  const [dataIsLoad, setDataIsLoad] = useState(1);
-  const [gameActive, setGameActive] = useState<IGame>();
 
   const status = 'game';
 
-  const cardContent = () => {
-    if (gameActive == null) {
-      return <p>Объект не определен</p>;
-    }
-    return (
-      <div className="game-card">
-        <div className="game-card__content_left">
-          <img src={gameActive.background_image} alt="game image"></img>
-          <p className="game-card__source">{gameActive.rating}</p>
-        </div>
-        <div className="game-card__content_right">
-          <h2 className="game-card__header">{gameActive.name}</h2>
-          <p className="game-card__years-cancel">
-            {(gameActive.esrb_rating != null && gameActive.esrb_rating.name_ru) ||
-              'Нет ограничений по возрасту'}
-          </p>
-          <p className="game-card__date">
-            Дата релиза: {new Date(gameActive.released).toLocaleString().slice(0, -10)}
-          </p>
-          <ul className="game-card__genres">
-            {gameActive.genres.map((game) => {
-              return <li key={game.id}>{game.name}</li>;
-            })}
-          </ul>
-        </div>
-      </div>
-    );
-  };
-
-  const onSubmit = (newGames: IGame[]) => {
-    setGames(newGames);
-    setDataIsLoad(3);
+  const onSubmit = (gamesCards: IGame[], ordering = '-rating', page = 1, page_size = 15) => {
+    gameDispatch({
+      type: 'search',
+      payload: {
+        gamesCards,
+        ordering,
+        page,
+        page_size,
+        chosenGame: null,
+        isLoaded: 'loaded',
+      },
+    });
   };
 
   const loading = () => {
-    setDataIsLoad(2);
+    gameDispatch({
+      type: 'loading',
+      payload: {
+        gamesCards: gamesState.gamesCards,
+        ordering: gamesState.ordering,
+        page: gamesState.page,
+        page_size: gamesState.page_size,
+        chosenGame: null,
+        isLoaded: 'loading',
+      },
+    });
   };
 
-  const onClick = () => {
+  const onClickModalLayout = () => {
     setModalActive(false);
   };
 
   const onClickCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const cardIndex = Number(e.currentTarget.classList[1]);
-    setGameActive(games[cardIndex]);
+    //! Нужно не передавать все параметры
+    gameDispatch({
+      type: 'pick game',
+      payload: {
+        gamesCards: gamesState.gamesCards,
+        ordering: gamesState.ordering,
+        page: gamesState.page,
+        page_size: gamesState.page_size,
+        chosenGame: gamesState.gamesCards[cardIndex],
+        isLoaded: 'loaded',
+      },
+    });
     setModalActive(true);
   };
 
   return (
     <div data-testid="pages/games">
-      <Search loading={loading} onSubmit={onSubmit} />
-      <APICards isLoad={dataIsLoad} games={games} onClick={onClickCard} />
-      {modalActive && <Modal status={status} onClick={onClick} content={cardContent} />}
+      <GameSearch loading={loading} onSubmit={onSubmit} />
+      <GameList onClick={onClickCard} />
+      {modalActive && <Modal status={status} onClick={onClickModalLayout} content={GameCard} />}
     </div>
   );
 };

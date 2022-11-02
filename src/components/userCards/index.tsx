@@ -3,11 +3,11 @@ import style from './index.module.css';
 import { useGlobalContext } from 'components/App';
 
 export const UserCards = () => {
-  const { state } = useGlobalContext();
+  const { userState } = useGlobalContext();
 
   return (
     <div className={style.userCardsWrapper}>
-      {state.userCards.map((user) => (
+      {userState.userCards.map((user) => (
         <div
           data-testid="pages/user-card"
           className={style.userCard}

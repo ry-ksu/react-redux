@@ -31,7 +31,25 @@ export type IFormData = {
   PDAgreement: boolean;
 };
 
-export type IAction = {
+export type IFormAction = {
   type: string;
   payload: IFormData;
+};
+
+export type IUserState = {
+  userCards: IFormData[];
+};
+
+export type IGameState = {
+  gamesCards: IGame[];
+  ordering: string;
+  page: number;
+  page_size: number;
+  chosenGame: IGame | null;
+  isLoaded: string;
+};
+
+export type ISearchAction = {
+  type: string;
+  payload: IGameState;
 };
