@@ -14,28 +14,37 @@ export function searchState(state: IGameState, action: ISearchAction) {
   switch (type) {
     case 'search':
       return {
+        newSearchValue: payload.newSearchValue,
+        oldSearchValue: payload.oldSearchValue,
         gamesCards: payload.gamesCards,
         ordering: payload.ordering,
         page: payload.page,
-        page_size: payload.page_size,
+        pageSize: payload.pageSize,
+        count: payload.count,
         chosenGame: payload.chosenGame,
         isLoaded: payload.isLoaded,
       };
     case 'pick game':
       return {
+        newSearchValue: payload.newSearchValue,
+        oldSearchValue: payload.oldSearchValue,
         gamesCards: state.gamesCards,
         ordering: state.ordering,
         page: state.page,
-        page_size: state.page_size,
+        pageSize: state.pageSize,
+        count: payload.count,
         chosenGame: payload.chosenGame,
         isLoaded: payload.isLoaded,
       };
     case 'loading':
       return {
+        newSearchValue: payload.newSearchValue,
+        oldSearchValue: payload.oldSearchValue,
         gamesCards: payload.gamesCards,
         ordering: payload.ordering,
         page: payload.page,
-        page_size: payload.page_size,
+        pageSize: payload.pageSize,
+        count: payload.count,
         chosenGame: payload.chosenGame,
         isLoaded: payload.isLoaded,
       };

@@ -1,34 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { axiosGet } from 'services';
 import { IGame } from 'types';
+import { useGlobalContext } from 'components/App';
 
 import styles from './index.module.css';
 
 type ISearchProp = {
   loading: () => void;
-  onSubmit: (game: IGame[]) => void;
+  onSubmit: (game: IGame[], page: string, count: string) => void;
 };
 
 export const GameSearch = (prop: ISearchProp) => {
-  const [inputValue, setInputValue] = useState('');
+  const { gamesState, gameDispatch } = useGlobalContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    prop.onSubmit([]);
+    prop.onSubmit([], gamesState.page, '0');
     prop.loading();
-    const result = await axiosGet(inputValue);
+
+    let page = gamesState.page;
+    console.log(gamesState.newSearchValue !== gamesState.oldSearchValue);
+    if (gamesState.newSearchValue !== gamesState.oldSearchValue) {
+      page = '1';
+    }
+
+    const result = await axiosGet(
+      gamesState.newSearchValue,
+      page,
+      gamesState.pageSize,
+      gamesState.ordering
+    );
     if (!result) {
-      prop.onSubmit([]);
+      prop.onSubmit([], '1', '0');
       return;
     }
-    prop.onSubmit(result.results);
+    prop.onSubmit(result.results, page, result.count);
+    console.log(result.count);
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value: inputValue },
     } = e;
-    setInputValue(inputValue);
+    gameDispatch({
+      type: 'search',
+      payload: {
+        newSearchValue: inputValue,
+        oldSearchValue: gamesState.oldSearchValue,
+        gamesCards: gamesState.gamesCards,
+        ordering: gamesState.ordering,
+        page: gamesState.page,
+        pageSize: gamesState.pageSize,
+        count: gamesState.count,
+        chosenGame: gamesState.chosenGame,
+        isLoaded: gamesState.isLoaded,
+      },
+    });
   };
 
   return (
@@ -40,7 +67,7 @@ export const GameSearch = (prop: ISearchProp) => {
           <input
             data-testid="games/search"
             type="search"
-            value={inputValue}
+            value={gamesState.newSearchValue}
             placeholder="Search games..."
             onChange={changeInput}
           />

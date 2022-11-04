@@ -5,8 +5,8 @@ const API_KEY = 'c5e92c5eb5ea462a8da8cff455452d29';
 
 export const axiosGet = (
   search: string,
-  page = 1,
-  page_size = 15,
+  page = '1',
+  pageSize = '15',
   ordering = '-rating',
   search_precise = true
 ) => {
@@ -18,11 +18,11 @@ export const axiosGet = (
     .get(`${url}`, {
       params: {
         search,
-        key: API_KEY,
         ordering,
-        page_size,
+        page_size: pageSize,
         page,
         search_precise,
+        key: API_KEY,
       },
     })
     .then((response) => response.data)

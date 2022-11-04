@@ -16,10 +16,13 @@ const defaultUserState: IUserState = {
 };
 
 const defaultGameState: IGameState = {
+  newSearchValue: '',
+  oldSearchValue: '',
   gamesCards: [],
   ordering: '-rating',
-  page: 1,
-  page_size: 15,
+  page: '1',
+  pageSize: '15',
+  count: 'enter a query to calculate the parameter',
   chosenGame: null,
   isLoaded: 'not loaded',
 };

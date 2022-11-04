@@ -14,14 +14,17 @@ export const Games = () => {
 
   const status = 'game';
 
-  const onSubmit = (gamesCards: IGame[], ordering = '-rating', page = 1, page_size = 15) => {
+  const onSubmit = (gamesCards: IGame[], page: string, count: string) => {
     gameDispatch({
       type: 'search',
       payload: {
+        newSearchValue: gamesState.newSearchValue,
+        oldSearchValue: gamesState.newSearchValue,
         gamesCards,
-        ordering,
-        page,
-        page_size,
+        ordering: gamesState.ordering,
+        page: page,
+        pageSize: gamesState.pageSize,
+        count: count,
         chosenGame: null,
         isLoaded: 'loaded',
       },
@@ -32,10 +35,13 @@ export const Games = () => {
     gameDispatch({
       type: 'loading',
       payload: {
+        newSearchValue: gamesState.newSearchValue,
+        oldSearchValue: gamesState.oldSearchValue,
         gamesCards: gamesState.gamesCards,
         ordering: gamesState.ordering,
         page: gamesState.page,
-        page_size: gamesState.page_size,
+        pageSize: gamesState.pageSize,
+        count: gamesState.count,
         chosenGame: null,
         isLoaded: 'loading',
       },
@@ -52,10 +58,13 @@ export const Games = () => {
     gameDispatch({
       type: 'pick game',
       payload: {
+        newSearchValue: gamesState.newSearchValue,
+        oldSearchValue: gamesState.oldSearchValue,
         gamesCards: gamesState.gamesCards,
         ordering: gamesState.ordering,
         page: gamesState.page,
-        page_size: gamesState.page_size,
+        pageSize: gamesState.pageSize,
+        count: gamesState.count,
         chosenGame: gamesState.gamesCards[cardIndex],
         isLoaded: 'loaded',
       },

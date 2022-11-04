@@ -41,10 +41,13 @@ export type IUserState = {
 };
 
 export type IGameState = {
+  newSearchValue: string;
+  oldSearchValue: string;
   gamesCards: IGame[];
   ordering: string;
-  page: number;
-  page_size: number;
+  page: string;
+  pageSize: string;
+  count: string;
   chosenGame: IGame | null;
   isLoaded: string;
 };
