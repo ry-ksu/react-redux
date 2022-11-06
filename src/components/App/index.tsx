@@ -22,7 +22,7 @@ const defaultGameState: IGameState = {
   ordering: '-rating',
   page: '1',
   pageSize: '15',
-  count: 'enter a query to calculate the parameter',
+  count: '0',
   chosenGame: null,
   isLoaded: 'not loaded',
 };

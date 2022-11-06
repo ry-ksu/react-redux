@@ -1,9 +1,9 @@
-.game-list-wrapper {
+.game-list {
   background: #eceef2;
   min-height: calc(100vh - 242px);
 }
 
-.game-list__cards {
+.game-list-wrapper {
   max-width: 1200px;
   margin: auto;
   padding: 30px 5px;
@@ -13,6 +13,11 @@
   gap: 15px;
 }
 
-.game-list__header {
-  
+.game-list__header,
+.game-list__content {
+  width: 100%;
+}
+
+.game-list__content {
+  margin-top: 20px;
 }

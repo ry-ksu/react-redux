@@ -10,7 +10,7 @@ export const GameCards = (prop: IAPICards) => {
   const { gamesState } = useGlobalContext();
 
   return (
-    <>
+    <div className={styles['card-list']}>
       {gamesState.gamesCards.map((game, i) => (
         <div
           data-testid="games/card"
@@ -30,6 +30,6 @@ export const GameCards = (prop: IAPICards) => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 };

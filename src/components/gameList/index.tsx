@@ -32,12 +32,10 @@ export const GameList = (prop: IGameListProps) => {
   return (
     <div className={styles['game-list']}>
       <div className={styles['game-list-wrapper']}>
-        <div className={styles['game-list__cards']}>
-          <div className={styles['game-list__header']}>
-            <GameList__header />
-          </div>
-          <div className={styles['game-list__content']}>{content}</div>
+        <div className={styles['game-list__header']}>
+          <GameList__header />
         </div>
+        <div className={styles['game-list__content']}>{content}</div>
         <Loader isLoading={gamesState.isLoaded} />
       </div>
     </div>

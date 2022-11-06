@@ -1,4 +1,11 @@
- .gamesCard {
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+} 
+ 
+.gamesCard {
   position: relative;
   background: #fff;
   border-radius: 20px;
