@@ -6,6 +6,7 @@ import { NotFoundPage } from '../pages/NotFoundPage';
 import { About } from '../pages/About';
 import { Games } from '../pages/Games';
 import { UserForms } from '../pages/UserForms';
+import { Game } from '../pages/Game';
 
 import { IUserState, IFormAction, ISearchAction, IGameState } from '../../types';
 import { formState, searchState } from 'reducer';
@@ -53,6 +54,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Games />} />
+          <Route path="game/:id" element={<Game />} />
           <Route path="forms" element={<UserForms />} />
           <Route path="about" element={<About />} />
           <Route path="*" element={<NotFoundPage />} />

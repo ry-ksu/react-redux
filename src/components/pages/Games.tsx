@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { GameSearch } from '../gameSearch';
 import { GameList } from '../gameList';
@@ -13,6 +14,7 @@ export const Games = () => {
   const [modalActive, setModalActive] = useState(false);
 
   const status = 'game';
+  const navigate = useNavigate();
 
   const onSubmit = (gamesCards: IGame[], page: string, count: string) => {
     gameDispatch({
@@ -69,7 +71,7 @@ export const Games = () => {
         isLoaded: 'loaded',
       },
     });
-    setModalActive(true);
+    navigate(`game/${gamesState.chosenGame?.id}`);
   };
 
   return (

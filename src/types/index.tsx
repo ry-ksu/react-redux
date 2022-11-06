@@ -9,6 +9,7 @@ export type UserProps = {
 };
 
 export type IGame = {
+  id: number;
   background_image: string;
   esrb_rating: { id: number; name: string; slug: string; name_en: string; name_ru: string };
   name: string;
