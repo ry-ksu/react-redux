@@ -1,13 +1,15 @@
+// Library
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+// Components
 import { GameSearch } from '../gameSearch';
 import { GameList } from '../gameList';
 import { Modal } from '../modal';
 import { useGlobalContext } from '../App';
 import { GameCard } from '../gameCard';
-
+// Other
 import { IGame } from '../../types';
+import { CHOSE_GAME, CHANGE_LOADING, ADD_NEW_CARDS } from 'reducer';
 
 export const Games = () => {
   const { gamesState, gameDispatch } = useGlobalContext();
@@ -18,35 +20,21 @@ export const Games = () => {
 
   const onSubmit = (gamesCards: IGame[], page: string, count: string) => {
     gameDispatch({
-      type: 'search',
-      payload: {
-        newSearchValue: gamesState.newSearchValue,
-        oldSearchValue: gamesState.newSearchValue,
+      type: ADD_NEW_CARDS,
+      payload: Object.assign({}, gamesState, {
+        page,
+        count,
         gamesCards,
-        ordering: gamesState.ordering,
-        page: page,
-        pageSize: gamesState.pageSize,
-        count: count,
-        chosenGame: null,
-        isLoaded: 'loaded',
-      },
+      }),
     });
   };
 
   const loading = () => {
     gameDispatch({
-      type: 'loading',
-      payload: {
-        newSearchValue: gamesState.newSearchValue,
-        oldSearchValue: gamesState.oldSearchValue,
-        gamesCards: gamesState.gamesCards,
-        ordering: gamesState.ordering,
-        page: gamesState.page,
-        pageSize: gamesState.pageSize,
-        count: gamesState.count,
-        chosenGame: null,
-        isLoaded: 'loading',
-      },
+      type: CHANGE_LOADING,
+      payload: Object.assign({}, gamesState, {
+        isLoaded: 'LOADING',
+      }),
     });
   };
 
@@ -56,20 +44,11 @@ export const Games = () => {
 
   const onClickCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const cardIndex = Number(e.currentTarget.classList[1]);
-    //! Нужно не передавать все параметры
     gameDispatch({
-      type: 'pick game',
-      payload: {
-        newSearchValue: gamesState.newSearchValue,
-        oldSearchValue: gamesState.oldSearchValue,
-        gamesCards: gamesState.gamesCards,
-        ordering: gamesState.ordering,
-        page: gamesState.page,
-        pageSize: gamesState.pageSize,
-        count: gamesState.count,
-        chosenGame: gamesState.gamesCards[cardIndex],
-        isLoaded: 'loaded',
-      },
+      type: CHOSE_GAME,
+      payload: Object.assign({}, gamesState, {
+        chosenGame: gamesState.gamesCards![cardIndex],
+      }),
     });
     navigate(`game/${gamesState.chosenGame?.id}`);
   };

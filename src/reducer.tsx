@@ -9,45 +9,50 @@ export function formState(state: IUserState, action: IFormAction) {
       return state;
   }
 }
+
+export const CHOSE_GAME = 'CHOSE_GAME';
+export const ADD_NEW_CARDS = 'ADD_NEW_CARDS';
+export const CHANGE_LOADING = 'CHANGE_LOADING';
+export const CHANGE_SEARCH_WORD = 'CHANGE_SEARCH_WORD';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
+export const CHANGE_PAGE_SIZE = 'CHANGE_PAGE_SIZE';
+export const CHANGE_ORDERING = 'CHANGE_ORDERING';
+
 export function searchState(state: IGameState, action: ISearchAction) {
   const { type, payload } = action;
   switch (type) {
-    case 'search':
-      return {
-        newSearchValue: payload.newSearchValue,
-        oldSearchValue: payload.oldSearchValue,
-        gamesCards: payload.gamesCards,
+    case CHANGE_ORDERING:
+      return Object.assign({}, state, {
         ordering: payload.ordering,
-        page: payload.page,
+      });
+    case CHANGE_PAGE_SIZE:
+      return Object.assign({}, state, {
         pageSize: payload.pageSize,
-        count: payload.count,
-        chosenGame: payload.chosenGame,
-        isLoaded: payload.isLoaded,
-      };
-    case 'pick game':
-      return {
+      });
+    case CHANGE_PAGE:
+      return Object.assign({}, state, {
+        page: payload.page,
+      });
+    case CHANGE_SEARCH_WORD:
+      return Object.assign({}, state, {
         newSearchValue: payload.newSearchValue,
-        oldSearchValue: payload.oldSearchValue,
-        gamesCards: state.gamesCards,
-        ordering: state.ordering,
-        page: state.page,
-        pageSize: state.pageSize,
-        count: payload.count,
-        chosenGame: payload.chosenGame,
-        isLoaded: payload.isLoaded,
-      };
-    case 'loading':
-      return {
-        newSearchValue: payload.newSearchValue,
-        oldSearchValue: payload.oldSearchValue,
+      });
+    case ADD_NEW_CARDS:
+      return Object.assign({}, state, {
+        page: payload.page,
         gamesCards: payload.gamesCards,
-        ordering: payload.ordering,
-        page: payload.page,
-        pageSize: payload.pageSize,
         count: payload.count,
+        chosenGame: null,
+        isLoaded: 'LOADED',
+      });
+    case CHOSE_GAME:
+      return Object.assign({}, state, {
         chosenGame: payload.chosenGame,
+      });
+    case CHANGE_LOADING:
+      return Object.assign({}, state, {
         isLoaded: payload.isLoaded,
-      };
+      });
     default:
       return state;
   }

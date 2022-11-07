@@ -1,9 +1,13 @@
+// Library
 import React from 'react';
+// Components
+import { useGlobalContext } from 'components/App';
+// Styles
+import styles from './index.module.css';
+// Other
+import { CHANGE_SEARCH_WORD } from 'reducer';
 import { axiosGet } from 'services';
 import { IGame } from 'types';
-import { useGlobalContext } from 'components/App';
-
-import styles from './index.module.css';
 
 type ISearchProp = {
   loading: () => void;
@@ -19,7 +23,7 @@ export const GameSearch = (prop: ISearchProp) => {
     prop.loading();
 
     let page = gamesState.page;
-    console.log(gamesState.newSearchValue !== gamesState.oldSearchValue);
+
     if (gamesState.newSearchValue !== gamesState.oldSearchValue) {
       page = '1';
     }
@@ -35,7 +39,6 @@ export const GameSearch = (prop: ISearchProp) => {
       return;
     }
     prop.onSubmit(result.results, page, result.count);
-    console.log(result.count);
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,18 +46,10 @@ export const GameSearch = (prop: ISearchProp) => {
       target: { value: inputValue },
     } = e;
     gameDispatch({
-      type: 'search',
-      payload: {
+      type: CHANGE_SEARCH_WORD,
+      payload: Object.assign({}, gamesState, {
         newSearchValue: inputValue,
-        oldSearchValue: gamesState.oldSearchValue,
-        gamesCards: gamesState.gamesCards,
-        ordering: gamesState.ordering,
-        page: gamesState.page,
-        pageSize: gamesState.pageSize,
-        count: gamesState.count,
-        chosenGame: gamesState.chosenGame,
-        isLoaded: gamesState.isLoaded,
-      },
+      }),
     });
   };
 

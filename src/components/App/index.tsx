@@ -25,7 +25,7 @@ const defaultGameState: IGameState = {
   pageSize: '15',
   count: '0',
   chosenGame: null,
-  isLoaded: 'not loaded',
+  isLoaded: 'NOT_LOADED',
 };
 
 type GlobalContent = {

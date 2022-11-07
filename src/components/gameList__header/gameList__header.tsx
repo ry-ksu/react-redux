@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-
+import { CHANGE_PAGE, CHANGE_PAGE_SIZE, CHANGE_ORDERING } from 'reducer';
 import { useGlobalContext } from '../App';
 import styles from './index.module.css';
 
@@ -42,51 +42,27 @@ export const GameList__header = () => {
     const {
       target: { value: inputValue },
     } = e;
-    console.log('value', inputValue);
+
     if (name === 'page') {
       gameDispatch({
-        type: 'search',
-        payload: {
-          newSearchValue: gamesState.newSearchValue,
-          oldSearchValue: gamesState.oldSearchValue,
-          gamesCards: gamesState.gamesCards,
-          ordering: gamesState.ordering,
+        type: CHANGE_PAGE,
+        payload: Object.assign({}, gamesState, {
           page: inputValue,
-          pageSize: gamesState.pageSize,
-          count: gamesState.count,
-          chosenGame: gamesState.chosenGame,
-          isLoaded: gamesState.isLoaded,
-        },
+        }),
       });
     } else if (name === 'pageSize') {
       gameDispatch({
-        type: 'search',
-        payload: {
-          newSearchValue: gamesState.newSearchValue,
-          oldSearchValue: gamesState.oldSearchValue,
-          gamesCards: gamesState.gamesCards,
-          ordering: gamesState.ordering,
-          page: gamesState.page,
+        type: CHANGE_PAGE_SIZE,
+        payload: Object.assign({}, gamesState, {
           pageSize: inputValue,
-          count: gamesState.count,
-          chosenGame: gamesState.chosenGame,
-          isLoaded: gamesState.isLoaded,
-        },
+        }),
       });
     } else if (name === 'ordering') {
       gameDispatch({
-        type: 'search',
-        payload: {
-          newSearchValue: gamesState.newSearchValue,
-          oldSearchValue: gamesState.oldSearchValue,
-          gamesCards: gamesState.gamesCards,
+        type: CHANGE_ORDERING,
+        payload: Object.assign({}, gamesState, {
           ordering: inputValue,
-          page: gamesState.page,
-          pageSize: gamesState.pageSize,
-          count: gamesState.count,
-          chosenGame: gamesState.chosenGame,
-          isLoaded: gamesState.isLoaded,
-        },
+        }),
       });
     }
   };
