@@ -1,13 +1,17 @@
+// Library
 import React from 'react';
+// Components
+import { useGlobalContext } from 'components/App';
+// Styles
+import styles from './index.module.css';
+// Other
+import { CHANGE_COUNT, CHANGE_SEARCH_WORD } from 'reducer';
 import { axiosGet } from 'services';
 import { IGame } from 'types';
-import { useGlobalContext } from 'components/App';
-
-import styles from './index.module.css';
 
 type ISearchProp = {
   loading: () => void;
-  onSubmit: (game: IGame[], page: string, count: string) => void;
+  onSubmit: (game: IGame[], isLoaded: string) => void;
 };
 
 export const GameSearch = (prop: ISearchProp) => {
@@ -15,27 +19,24 @@ export const GameSearch = (prop: ISearchProp) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    prop.onSubmit([], gamesState.page, '0');
+    prop.onSubmit([], 'NOT_LOADED');
     prop.loading();
-
-    let page = gamesState.page;
-    console.log(gamesState.newSearchValue !== gamesState.oldSearchValue);
-    if (gamesState.newSearchValue !== gamesState.oldSearchValue) {
-      page = '1';
-    }
 
     const result = await axiosGet(
       gamesState.newSearchValue,
-      page,
+      gamesState.page,
       gamesState.pageSize,
       gamesState.ordering
     );
     if (!result) {
-      prop.onSubmit([], '1', '0');
+      prop.onSubmit([], 'LOADED');
       return;
     }
-    prop.onSubmit(result.results, page, result.count);
-    console.log(result.count);
+    prop.onSubmit(result.results, 'LOADED');
+    gameDispatch({
+      type: CHANGE_COUNT,
+      payload: { ...gamesState, count: result.count },
+    });
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,18 +44,8 @@ export const GameSearch = (prop: ISearchProp) => {
       target: { value: inputValue },
     } = e;
     gameDispatch({
-      type: 'search',
-      payload: {
-        newSearchValue: inputValue,
-        oldSearchValue: gamesState.oldSearchValue,
-        gamesCards: gamesState.gamesCards,
-        ordering: gamesState.ordering,
-        page: gamesState.page,
-        pageSize: gamesState.pageSize,
-        count: gamesState.count,
-        chosenGame: gamesState.chosenGame,
-        isLoaded: gamesState.isLoaded,
-      },
+      type: CHANGE_SEARCH_WORD,
+      payload: { ...gamesState, newSearchValue: inputValue },
     });
   };
 

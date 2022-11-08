@@ -18,14 +18,13 @@ const defaultUserState: IUserState = {
 
 const defaultGameState: IGameState = {
   newSearchValue: '',
-  oldSearchValue: '',
   gamesCards: [],
   ordering: '-rating',
   page: '1',
   pageSize: '15',
-  count: '0',
+  count: '1',
   chosenGame: null,
-  isLoaded: 'not loaded',
+  isLoaded: 'NOT_LOADED',
 };
 
 type GlobalContent = {

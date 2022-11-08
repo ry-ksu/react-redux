@@ -9,45 +9,53 @@ export function formState(state: IUserState, action: IFormAction) {
       return state;
   }
 }
+
+export const CHOSE_GAME = 'CHOSE_GAME';
+export const ADD_NEW_CARDS = 'ADD_NEW_CARDS';
+export const CHANGE_LOADING = 'CHANGE_LOADING';
+export const CHANGE_SEARCH_WORD = 'CHANGE_SEARCH_WORD';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
+export const CHANGE_PAGE_SIZE = 'CHANGE_PAGE_SIZE';
+export const CHANGE_ORDERING = 'CHANGE_ORDERING';
+export const CHANGE_COUNT = 'CHANGE_COUNT';
+
 export function searchState(state: IGameState, action: ISearchAction) {
   const { type, payload } = action;
   switch (type) {
-    case 'search':
+    case CHANGE_COUNT:
+      return { ...state, count: payload.count };
+
+    case CHANGE_ORDERING:
+      return { ...state, ordering: payload.ordering };
+
+    case CHANGE_PAGE_SIZE:
+      return { ...state, pageSize: payload.pageSize };
+
+    case CHANGE_PAGE:
+      return { ...state, page: payload.page };
+
+    case CHANGE_SEARCH_WORD:
       return {
+        ...state,
         newSearchValue: payload.newSearchValue,
-        oldSearchValue: payload.oldSearchValue,
+        page: '1',
+        count: '1',
+      };
+
+    case ADD_NEW_CARDS:
+      return {
+        ...state,
         gamesCards: payload.gamesCards,
-        ordering: payload.ordering,
-        page: payload.page,
-        pageSize: payload.pageSize,
-        count: payload.count,
-        chosenGame: payload.chosenGame,
+        chosenGame: null,
         isLoaded: payload.isLoaded,
       };
-    case 'pick game':
-      return {
-        newSearchValue: payload.newSearchValue,
-        oldSearchValue: payload.oldSearchValue,
-        gamesCards: state.gamesCards,
-        ordering: state.ordering,
-        page: state.page,
-        pageSize: state.pageSize,
-        count: payload.count,
-        chosenGame: payload.chosenGame,
-        isLoaded: payload.isLoaded,
-      };
-    case 'loading':
-      return {
-        newSearchValue: payload.newSearchValue,
-        oldSearchValue: payload.oldSearchValue,
-        gamesCards: payload.gamesCards,
-        ordering: payload.ordering,
-        page: payload.page,
-        pageSize: payload.pageSize,
-        count: payload.count,
-        chosenGame: payload.chosenGame,
-        isLoaded: payload.isLoaded,
-      };
+
+    case CHOSE_GAME:
+      return { ...state, chosenGame: payload.chosenGame };
+
+    case CHANGE_LOADING:
+      return { ...state, isLoaded: payload.isLoaded };
+
     default:
       return state;
   }

@@ -43,7 +43,6 @@ export type IUserState = {
 
 export type IGameState = {
   newSearchValue: string;
-  oldSearchValue: string;
   gamesCards: IGame[];
   ordering: string;
   page: string;
