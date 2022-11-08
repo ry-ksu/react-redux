@@ -4,26 +4,11 @@ import { CHANGE_PAGE, CHANGE_PAGE_SIZE, CHANGE_ORDERING } from 'reducer';
 import { useGlobalContext } from '../App';
 import styles from './index.module.css';
 
-type IData = {
-  page: string;
-  pageSize: string;
-  ordering: string;
-};
-
 export const GameList__header = () => {
   const { gamesState, gameDispatch } = useGlobalContext();
-  let pageCount: string;
+  const pageCount = String(Math.ceil(Number(gamesState.count) / Number(gamesState.pageSize)));
 
-  if (isNaN(Number(gamesState.count))) {
-    pageCount = gamesState.count;
-  } else {
-    pageCount = String(Math.ceil(Number(gamesState.count) / Number(gamesState.pageSize)));
-  }
-
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
+  const { register } = useForm({
     mode: 'onChange',
     defaultValues: {
       page: gamesState.page,
@@ -34,10 +19,6 @@ export const GameList__header = () => {
 
   const changeForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
-
-    if (errors[name as keyof IData]) {
-      return;
-    }
 
     const {
       target: { value: inputValue },
@@ -61,55 +42,54 @@ export const GameList__header = () => {
     }
   };
 
+  const pages = [];
+  for (let i = 1; i <= Number(pageCount); i++) {
+    pages.push(i);
+  }
+
+  const pageSize = [];
+  for (let i = 1; i <= 40; i++) {
+    pageSize.push(i);
+  }
+
   return (
     <form className={styles['form']}>
       <label className={styles['form__label']}>
         Page number:
-        <input
+        <select
           className={styles['form__input_page']}
           data-testid="page"
-          type="number"
           {...register('page', {
-            onBlur: (e) => changeForm(e),
-            required: 'Page is required',
-            min: {
-              value: 1,
-              message: 'Minimum is 1',
-            },
-            max: {
-              value: Number(pageCount) || 1,
-              message: `Maximum is 'Total pages' or 1`,
-            },
-            validate: {
-              value: (value) => Number(value) % 1 === 0 || 'It will be integer',
-            },
+            onChange: (e) => changeForm(e),
           })}
-        />
-        <p className="error">{errors.page && String(errors.page.message)}</p>
+        >
+          {pages.map((page) => {
+            return (
+              <option key={page} value={page}>
+                {page}
+              </option>
+            );
+          })}
+        </select>
       </label>
 
       <label>
         Page size:
-        <input
+        <select
+          className={styles['form__input_pageSize']}
           data-testid="pageSize"
-          type="number"
           {...register('pageSize', {
-            onBlur: (e) => changeForm(e),
-            required: 'Page size is required',
-            min: {
-              value: 1,
-              message: 'Minimum is 1',
-            },
-            max: {
-              value: 40,
-              message: 'Maximum is 40',
-            },
-            validate: {
-              value: (value) => Number(value) % 1 === 0 || 'It will be integer',
-            },
+            onChange: (e) => changeForm(e),
           })}
-        />
-        <p className="error">{errors.pageSize && String(errors.pageSize.message)}</p>
+        >
+          {pageSize.map((page) => {
+            return (
+              <option key={page} value={page}>
+                {page}
+              </option>
+            );
+          })}
+        </select>
       </label>
 
       <label>
