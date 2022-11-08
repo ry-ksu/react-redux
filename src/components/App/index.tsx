@@ -18,7 +18,6 @@ const defaultUserState: IUserState = {
 
 const defaultGameState: IGameState = {
   newSearchValue: '',
-  oldSearchValue: '',
   gamesCards: [],
   ordering: '-rating',
   page: '1',

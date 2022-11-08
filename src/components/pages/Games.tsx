@@ -18,10 +18,10 @@ export const Games = () => {
   const status = 'game';
   const navigate = useNavigate();
 
-  const onSubmit = (gamesCards: IGame[], page: string, count: string) => {
+  const onSubmit = (gamesCards: IGame[], isLoaded: string) => {
     gameDispatch({
       type: ADD_NEW_CARDS,
-      payload: { ...gamesState, page, count, gamesCards },
+      payload: { ...gamesState, gamesCards, isLoaded },
     });
   };
 

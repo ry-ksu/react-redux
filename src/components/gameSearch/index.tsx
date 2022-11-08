@@ -5,13 +5,13 @@ import { useGlobalContext } from 'components/App';
 // Styles
 import styles from './index.module.css';
 // Other
-import { CHANGE_SEARCH_WORD } from 'reducer';
+import { CHANGE_COUNT, CHANGE_SEARCH_WORD } from 'reducer';
 import { axiosGet } from 'services';
 import { IGame } from 'types';
 
 type ISearchProp = {
   loading: () => void;
-  onSubmit: (game: IGame[], page: string, count: string) => void;
+  onSubmit: (game: IGame[], isLoaded: string) => void;
 };
 
 export const GameSearch = (prop: ISearchProp) => {
@@ -19,26 +19,24 @@ export const GameSearch = (prop: ISearchProp) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    prop.onSubmit([], gamesState.page, '0');
+    prop.onSubmit([], 'NOT_LOADED');
     prop.loading();
-
-    let page = gamesState.page;
-
-    if (gamesState.newSearchValue !== gamesState.oldSearchValue) {
-      page = '1';
-    }
 
     const result = await axiosGet(
       gamesState.newSearchValue,
-      page,
+      gamesState.page,
       gamesState.pageSize,
       gamesState.ordering
     );
     if (!result) {
-      prop.onSubmit([], '1', '0');
+      prop.onSubmit([], 'LOADED');
       return;
     }
-    prop.onSubmit(result.results, page, result.count);
+    prop.onSubmit(result.results, 'LOADED');
+    gameDispatch({
+      type: CHANGE_COUNT,
+      payload: { ...gamesState, count: result.count },
+    });
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

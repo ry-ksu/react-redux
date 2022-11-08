@@ -17,10 +17,14 @@ export const CHANGE_SEARCH_WORD = 'CHANGE_SEARCH_WORD';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const CHANGE_PAGE_SIZE = 'CHANGE_PAGE_SIZE';
 export const CHANGE_ORDERING = 'CHANGE_ORDERING';
+export const CHANGE_COUNT = 'CHANGE_COUNT';
 
 export function searchState(state: IGameState, action: ISearchAction) {
   const { type, payload } = action;
   switch (type) {
+    case CHANGE_COUNT:
+      return { ...state, count: payload.count };
+
     case CHANGE_ORDERING:
       return { ...state, ordering: payload.ordering };
 
@@ -31,16 +35,19 @@ export function searchState(state: IGameState, action: ISearchAction) {
       return { ...state, page: payload.page };
 
     case CHANGE_SEARCH_WORD:
-      return { ...state, newSearchValue: payload.newSearchValue };
+      return {
+        ...state,
+        newSearchValue: payload.newSearchValue,
+        page: '1',
+        count: '1',
+      };
 
     case ADD_NEW_CARDS:
       return {
         ...state,
-        page: payload.page,
         gamesCards: payload.gamesCards,
-        count: payload.count,
         chosenGame: null,
-        isLoaded: 'LOADED',
+        isLoaded: payload.isLoaded,
       };
 
     case CHOSE_GAME:
