@@ -47,9 +47,7 @@ export const GameSearch = (prop: ISearchProp) => {
     } = e;
     gameDispatch({
       type: CHANGE_SEARCH_WORD,
-      payload: Object.assign({}, gamesState, {
-        newSearchValue: inputValue,
-      }),
+      payload: { ...gamesState, newSearchValue: inputValue },
     });
   };
 

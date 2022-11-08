@@ -21,20 +21,14 @@ export const Games = () => {
   const onSubmit = (gamesCards: IGame[], page: string, count: string) => {
     gameDispatch({
       type: ADD_NEW_CARDS,
-      payload: Object.assign({}, gamesState, {
-        page,
-        count,
-        gamesCards,
-      }),
+      payload: { ...gamesState, page, count, gamesCards },
     });
   };
 
   const loading = () => {
     gameDispatch({
       type: CHANGE_LOADING,
-      payload: Object.assign({}, gamesState, {
-        isLoaded: 'LOADING',
-      }),
+      payload: { ...gamesState, isLoaded: 'LOADING' },
     });
   };
 
@@ -46,9 +40,7 @@ export const Games = () => {
     const cardIndex = Number(e.currentTarget.classList[1]);
     gameDispatch({
       type: CHOSE_GAME,
-      payload: Object.assign({}, gamesState, {
-        chosenGame: gamesState.gamesCards![cardIndex],
-      }),
+      payload: { ...gamesState, chosenGame: gamesState.gamesCards![cardIndex] },
     });
     navigate(`game/${gamesState.chosenGame?.id}`);
   };

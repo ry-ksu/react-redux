@@ -46,23 +46,17 @@ export const GameList__header = () => {
     if (name === 'page') {
       gameDispatch({
         type: CHANGE_PAGE,
-        payload: Object.assign({}, gamesState, {
-          page: inputValue,
-        }),
+        payload: { ...gamesState, page: inputValue },
       });
     } else if (name === 'pageSize') {
       gameDispatch({
         type: CHANGE_PAGE_SIZE,
-        payload: Object.assign({}, gamesState, {
-          pageSize: inputValue,
-        }),
+        payload: { ...gamesState, pageSize: inputValue },
       });
     } else if (name === 'ordering') {
       gameDispatch({
         type: CHANGE_ORDERING,
-        payload: Object.assign({}, gamesState, {
-          ordering: inputValue,
-        }),
+        payload: { ...gamesState, ordering: inputValue },
       });
     }
   };
