@@ -38,7 +38,7 @@ export type IFormAction = {
 };
 
 export type IUserState = {
-  userCards: IFormData[];
+  users: IFormData[];
 };
 
 export type IGameState = {

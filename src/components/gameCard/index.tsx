@@ -1,7 +1,6 @@
 import React from 'react';
 import { useGlobalContext } from 'components/App';
 
-
 export const GameCard = () => {
   const { gamesState } = useGlobalContext();
 

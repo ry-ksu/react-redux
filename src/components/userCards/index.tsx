@@ -1,13 +1,16 @@
 import React from 'react';
 import style from './index.module.css';
-import { useGlobalContext } from 'components/App';
+// import { useSelector } from 'react-redux';
+// import { useGlobalContext } from 'components/App';
+import { useAppSelector } from 'hook';
 
 export const UserCards = () => {
-  const { userState } = useGlobalContext();
+  // const { userState } = useGlobalContext();
+  const users = useAppSelector((state) => state.user.users);
 
   return (
     <div className={style.userCardsWrapper}>
-      {userState.userCards.map((user) => (
+      {users.map((user) => (
         <div
           data-testid="pages/user-card"
           className={style.userCard}

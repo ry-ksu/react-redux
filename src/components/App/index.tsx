@@ -8,14 +8,10 @@ import { Games } from '../pages/Games';
 import { UserForms } from '../pages/UserForms';
 import { Game } from '../pages/Game';
 
-import { IUserState, IFormAction, ISearchAction, IGameState } from '../../types';
-import { formState, searchState } from 'reducer';
+import { ISearchAction, IGameState } from '../../types';
+import { searchReducer } from 'reducer';
 
 // start code for GlobalState
-const defaultUserState: IUserState = {
-  userCards: [],
-};
-
 const defaultGameState: IGameState = {
   newSearchValue: '',
   gamesCards: [],
@@ -28,15 +24,11 @@ const defaultGameState: IGameState = {
 };
 
 type GlobalContent = {
-  userState: IUserState;
-  userDispatch: (obj: IFormAction) => void;
   gamesState: IGameState;
   gameDispatch: (obj: ISearchAction) => void;
 };
 
 const AppContext = createContext<GlobalContent>({
-  userState: defaultUserState,
-  userDispatch: () => {},
   gamesState: defaultGameState,
   gameDispatch: () => {},
 });
@@ -45,11 +37,10 @@ export const useGlobalContext = () => useContext(AppContext);
 // end code for GlobalState
 
 function App() {
-  const [userState, userDispatch] = useReducer(formState, defaultUserState);
-  const [gamesState, gameDispatch] = useReducer(searchState, defaultGameState);
+  const [gamesState, gameDispatch] = useReducer(searchReducer, defaultGameState);
 
   return (
-    <AppContext.Provider value={{ userState, userDispatch, gamesState, gameDispatch }}>
+    <AppContext.Provider value={{ gamesState, gameDispatch }}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Games />} />

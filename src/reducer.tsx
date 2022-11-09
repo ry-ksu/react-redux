@@ -1,10 +1,10 @@
 import { IFormAction, ISearchAction, IGameState, IUserState } from './types';
 
-export function formState(state: IUserState, action: IFormAction) {
+export function formReducer(state: IUserState, action: IFormAction) {
   const { type, payload } = action;
   switch (type) {
     case 'add':
-      return { userCards: [...state.userCards, payload] };
+      return { userCards: [...state.users, payload] };
     default:
       return state;
   }
@@ -19,7 +19,7 @@ export const CHANGE_PAGE_SIZE = 'CHANGE_PAGE_SIZE';
 export const CHANGE_ORDERING = 'CHANGE_ORDERING';
 export const CHANGE_COUNT = 'CHANGE_COUNT';
 
-export function searchState(state: IGameState, action: ISearchAction) {
+export function searchReducer(state: IGameState, action: ISearchAction) {
   const { type, payload } = action;
   switch (type) {
     case CHANGE_COUNT:
