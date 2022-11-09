@@ -5,31 +5,38 @@ import { useNavigate } from 'react-router-dom';
 import { GameSearch } from '../gameSearch';
 import { GameList } from '../gameList';
 import { Modal } from '../modal';
-import { useGlobalContext } from '../App';
+// import { useGlobalContext } from '../App';
 import { GameCard } from '../gameCard';
 // Other
 import { IGame } from '../../types';
-import { CHOSE_GAME, CHANGE_LOADING, ADD_NEW_CARDS } from 'reducer';
+// import { CHOSE_GAME, CHANGE_LOADING, ADD_NEW_CARDS } from 'reducer';
+import { choseGame, changeLoading, addNewGames } from 'store/searchSlice';
+import { useAppDispatch, useAppSelector } from 'hook';
 
 export const Games = () => {
-  const { gamesState, gameDispatch } = useGlobalContext();
+  const games = useAppSelector((state) => state.search.gamesCards);
+  const chosenGame = useAppSelector((state) => state.search.chosenGame);
+  const dispatch = useAppDispatch();
+  // const { gamesState, gameDispatch } = useGlobalContext();
   const [modalActive, setModalActive] = useState(false);
 
   const status = 'game';
   const navigate = useNavigate();
 
   const onSubmit = (gamesCards: IGame[], isLoaded: string) => {
-    gameDispatch({
-      type: ADD_NEW_CARDS,
-      payload: { ...gamesState, gamesCards, isLoaded },
-    });
+    dispatch(addNewGames({ gamesCards, isLoaded }));
+    // gameDispatch({
+    //   type: ADD_NEW_CARDS,
+    //   payload: { ...gamesState, gamesCards, isLoaded },
+    // });
   };
 
   const loading = () => {
-    gameDispatch({
-      type: CHANGE_LOADING,
-      payload: { ...gamesState, isLoaded: 'LOADING' },
-    });
+    dispatch(changeLoading({ isLoaded: 'LOADING' }));
+    // gameDispatch({
+    //   type: CHANGE_LOADING,
+    //   payload: { ...gamesState, isLoaded: 'LOADING' },
+    // });
   };
 
   const onClickModalLayout = () => {
@@ -38,11 +45,12 @@ export const Games = () => {
 
   const onClickCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const cardIndex = Number(e.currentTarget.classList[1]);
-    gameDispatch({
-      type: CHOSE_GAME,
-      payload: { ...gamesState, chosenGame: gamesState.gamesCards![cardIndex] },
-    });
-    navigate(`game/${gamesState.chosenGame?.id}`);
+    dispatch(choseGame({ chosenGame: games[cardIndex] }));
+    // gameDispatch({
+    //   type: CHOSE_GAME,
+    //   payload: { ...gamesState, chosenGame: gamesState.gamesCards![cardIndex] },
+    // });
+    navigate(`game/${chosenGame?.id}`);
   };
 
   return (

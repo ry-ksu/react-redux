@@ -1,19 +1,23 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CHANGE_PAGE, CHANGE_PAGE_SIZE, CHANGE_ORDERING } from 'reducer';
-import { useGlobalContext } from '../App';
+// import { CHANGE_PAGE, CHANGE_PAGE_SIZE, CHANGE_ORDERING } from 'reducer';
+// import { useGlobalContext } from '../App';
+import { useAppDispatch, useAppSelector } from 'hook';
+import { changePage, changePageSize, changeOrdering } from 'store/searchSlice';
 import styles from './index.module.css';
 
 export const GameList__header = () => {
-  const { gamesState, gameDispatch } = useGlobalContext();
-  const pageCount = String(Math.ceil(Number(gamesState.count) / Number(gamesState.pageSize)));
+  const gameState = useAppSelector((state) => state.search);
+  const dispatch = useAppDispatch();
+  // const { gamesState, gameDispatch } = useGlobalContext();
+  const pageCount = String(Math.ceil(Number(gameState.count) / Number(gameState.pageSize)));
 
   const { register } = useForm({
     mode: 'onChange',
     defaultValues: {
-      page: gamesState.page,
-      pageSize: gamesState.pageSize,
-      ordering: gamesState.ordering,
+      page: gameState.page,
+      pageSize: gameState.pageSize,
+      ordering: gameState.ordering,
     },
   });
 
@@ -25,20 +29,23 @@ export const GameList__header = () => {
     } = e;
 
     if (name === 'page') {
-      gameDispatch({
-        type: CHANGE_PAGE,
-        payload: { ...gamesState, page: inputValue },
-      });
+      dispatch(changePage({ page: inputValue }));
+      // gameDispatch({
+      //   type: CHANGE_PAGE,
+      //   payload: { ...gamesState, page: inputValue },
+      // });
     } else if (name === 'pageSize') {
-      gameDispatch({
-        type: CHANGE_PAGE_SIZE,
-        payload: { ...gamesState, pageSize: inputValue },
-      });
+      dispatch(changePageSize({ pageSize: inputValue }));
+      // gameDispatch({
+      //   type: CHANGE_PAGE_SIZE,
+      //   payload: { ...gamesState, pageSize: inputValue },
+      // });
     } else if (name === 'ordering') {
-      gameDispatch({
-        type: CHANGE_ORDERING,
-        payload: { ...gamesState, ordering: inputValue },
-      });
+      dispatch(changeOrdering({ ordering: inputValue }));
+      // gameDispatch({
+      //   type: CHANGE_ORDERING,
+      //   payload: { ...gamesState, ordering: inputValue },
+      // });
     }
   };
 

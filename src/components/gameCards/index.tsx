@@ -1,5 +1,6 @@
 import React from 'react';
-import { useGlobalContext } from '../App';
+// import { useGlobalContext } from '../App';
+import { useAppSelector } from 'hook';
 import styles from './index.module.css';
 
 type IAPICards = {
@@ -7,11 +8,12 @@ type IAPICards = {
 };
 
 export const GameCards = (prop: IAPICards) => {
-  const { gamesState } = useGlobalContext();
+  const games = useAppSelector((state) => state.search.gamesCards);
+  // const { gamesState } = useGlobalContext();
 
   return (
     <div className={styles['card-list']}>
-      {gamesState.gamesCards.map((game, i) => (
+      {games.map((game, i) => (
         <div
           data-testid="games/card"
           key={i}

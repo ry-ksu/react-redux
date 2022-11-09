@@ -1,11 +1,14 @@
 // Library
 import React from 'react';
 // Components
-import { useGlobalContext } from 'components/App';
+// import { useGlobalContext } from 'components/App';
 // Styles
 import styles from './index.module.css';
 // Other
-import { CHANGE_COUNT, CHANGE_SEARCH_WORD } from 'reducer';
+// import { CHANGE_COUNT, CHANGE_SEARCH_WORD } from 'reducer';
+import { changeCount, changeSearchWord } from 'store/searchSlice';
+import { useAppSelector } from 'hook';
+import { useAppDispatch } from 'hook';
 import { axiosGet } from 'services';
 import { IGame } from 'types';
 
@@ -15,7 +18,9 @@ type ISearchProp = {
 };
 
 export const GameSearch = (prop: ISearchProp) => {
-  const { gamesState, gameDispatch } = useGlobalContext();
+  const dispatch = useAppDispatch();
+  const gameState = useAppSelector((state) => state.search);
+  // const { gamesState: gamesState2, gameDispatch } = useGlobalContext();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,30 +28,32 @@ export const GameSearch = (prop: ISearchProp) => {
     prop.loading();
 
     const result = await axiosGet(
-      gamesState.newSearchValue,
-      gamesState.page,
-      gamesState.pageSize,
-      gamesState.ordering
+      gameState.newSearchValue,
+      gameState.page,
+      gameState.pageSize,
+      gameState.ordering
     );
     if (!result) {
       prop.onSubmit([], 'LOADED');
       return;
     }
     prop.onSubmit(result.results, 'LOADED');
-    gameDispatch({
-      type: CHANGE_COUNT,
-      payload: { ...gamesState, count: result.count },
-    });
+    dispatch(changeCount({ count: result.count }));
+    // gameDispatch({
+    //   type: CHANGE_COUNT,
+    //   payload: { ...gamesState2, count: result.count },
+    // });
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value: inputValue },
     } = e;
-    gameDispatch({
-      type: CHANGE_SEARCH_WORD,
-      payload: { ...gamesState, newSearchValue: inputValue },
-    });
+    dispatch(changeSearchWord({ newSearchValue: inputValue }));
+    // gameDispatch({
+    //   type: CHANGE_SEARCH_WORD,
+    //   payload: { ...gamesState2, newSearchValue: inputValue },
+    // });
   };
 
   return (
@@ -58,7 +65,7 @@ export const GameSearch = (prop: ISearchProp) => {
           <input
             data-testid="games/search"
             type="search"
-            value={gamesState.newSearchValue}
+            value={gameState.newSearchValue}
             placeholder="Search games..."
             onChange={changeInput}
           />

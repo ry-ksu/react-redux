@@ -1,16 +1,18 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { useGlobalContext } from '../App';
+import { useAppSelector } from 'hook';
+// import { useGlobalContext } from '../App';
 
 import styles from './index.module.css';
 
 const setActive = ({ isActive }: { isActive: boolean }) => (isActive ? styles['active-link'] : '');
 
 export const Layout = () => {
-  const { gamesState } = useGlobalContext();
-  let gamePath = `game/${gamesState.chosenGame?.id}`;
+  const gameState = useAppSelector((state) => state.search.chosenGame);
+  // const { gamesState } = useGlobalContext();
+  let gamePath = `game/${gameState?.id}`;
 
-  if (!gamesState.chosenGame?.id) {
+  if (!gameState?.id) {
     gamePath = '/';
   }
   return (
