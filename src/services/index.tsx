@@ -11,7 +11,7 @@ export const axiosGet = (
   search_precise = true
 ) => {
   if (search.length === 0) {
-    return;
+    return { count: 0, results: [] };
   }
 
   return axios

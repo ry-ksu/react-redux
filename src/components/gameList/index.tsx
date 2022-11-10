@@ -6,8 +6,9 @@ import { GameWarning } from '../gameWarning';
 import { GameList__header } from '../gameList__header/gameList__header';
 import { GameCards } from '../gameCards';
 // Styles
-import { useAppSelector } from 'hook';
 import styles from './index.module.css';
+// Other
+import { useAppSelector } from 'hook';
 
 type IGameListProps = {
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -22,6 +23,8 @@ export const GameList = (prop: IGameListProps) => {
 
   if (gameState.isLoaded === 'NOT_LOADED') {
     content = GameWarning(firstSearch);
+  } else if (gameState.isLoaded === 'REJECTED') {
+    content = GameWarning(String(gameState.error));
   } else if (gameState.isLoaded === 'LOADED' && gameState.gamesCards.length === 0) {
     content = GameWarning(notData);
   } else if (gameState.gamesCards.length != 0) {

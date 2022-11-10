@@ -1,13 +1,3 @@
-export type UserProps = {
-  name: string;
-  birthday: string;
-  eMail: string;
-  enLvl: string;
-  PDAgreement: boolean;
-  gender: string;
-  file: string;
-};
-
 export type IGame = {
   id: number;
   background_image: string;
@@ -32,11 +22,6 @@ export type IFormData = {
   PDAgreement: boolean;
 };
 
-export type IFormAction = {
-  type: string;
-  payload: IFormData;
-};
-
 export type IUserState = {
   users: IFormData[];
 };
@@ -51,11 +36,6 @@ export type IGameState = {
   chosenGame: IGame | null;
   isLoaded: string;
   error: null | string;
-};
-
-export type ISearchAction = {
-  type: string;
-  payload: IGameState;
 };
 
 export type IGameAPIResponse = {

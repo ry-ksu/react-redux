@@ -1,11 +1,8 @@
 import React from 'react';
 import style from './index.module.css';
-// import { useSelector } from 'react-redux';
-// import { useGlobalContext } from 'components/App';
 import { useAppSelector } from 'hook';
 
 export const UserCards = () => {
-  // const { userState } = useGlobalContext();
   const users = useAppSelector((state) => state.user.users);
 
   return (
@@ -22,16 +19,16 @@ export const UserCards = () => {
               {user.name} ({user.gender})
             </h3>
             <h5>
-              Почта: <strong>{user.eMail}</strong>
+              E-mail: <strong>{user.eMail}</strong>
             </h5>
             <h5>
-              Дата рождения: <strong>{user.birthday}</strong>
+              Date of Birthday: <strong>{user.birthday}</strong>
             </h5>
             <h5>
-              Уровень английского: <strong>{user.enLvl.toUpperCase()}</strong>
+              English level: <strong>{user.enLvl.toUpperCase()}</strong>
             </h5>
             <h4>
-              Согласие на обработку ПД: <strong>ДА</strong>
+              PD agreement: <strong>YES</strong>
             </h4>
           </div>
         </div>

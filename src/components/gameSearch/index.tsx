@@ -3,10 +3,8 @@ import React from 'react';
 // Styles
 import styles from './index.module.css';
 // Other
-import { fetchUsers } from 'store/searchSlice';
-import { changeSearchWord } from 'store/searchSlice';
-import { useAppSelector } from 'hook';
-import { useAppDispatch } from 'hook';
+import { fetchUsers, changeSearchWord } from 'store/searchSlice';
+import { useAppSelector, useAppDispatch } from 'hook';
 
 export const GameSearch = () => {
   const dispatch = useAppDispatch();

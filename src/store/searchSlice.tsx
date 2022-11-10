@@ -8,6 +8,7 @@ export const fetchUsers = createAsyncThunk<
   { rejectValue: string; state: { search: IGameState } }
 >('search/fetchSearch', async function (_, { rejectWithValue, getState }) {
   const state = getState().search;
+
   try {
     const response = await axiosGet(
       state.newSearchValue,
@@ -15,6 +16,7 @@ export const fetchUsers = createAsyncThunk<
       state.pageSize,
       state.ordering
     );
+
     return response;
   } catch (error) {
     return rejectWithValue('Something was wrong');
@@ -37,9 +39,6 @@ const searchSlice = createSlice({
   name: 'search',
   initialState: searchInitialState,
   reducers: {
-    changeCount(state, action) {
-      state.count = action.payload.count;
-    },
     changeOrdering(state, action) {
       state.ordering = action.payload.ordering;
     },
@@ -54,16 +53,8 @@ const searchSlice = createSlice({
       state.page = '1';
       state.count = '1';
     },
-    addNewGames(state, action) {
-      state.gamesCards = action.payload.gamesCards;
-      state.chosenGame = null;
-      state.isLoaded = action.payload.isLoaded;
-    },
     choseGame(state, action) {
       state.chosenGame = action.payload.chosenGame;
-    },
-    changeLoading(state, action) {
-      state.isLoaded = action.payload.isLoaded;
     },
   },
   extraReducers: (builder) => {
@@ -81,20 +72,12 @@ const searchSlice = createSlice({
       })
       .addCase(fetchUsers.rejected, (state) => {
         state.isLoaded = 'REJECTED';
-        state.error = 'Something was wrong';
+        state.error = 'Something was wrong. Please, try again.';
       });
   },
 });
 
-export const {
-  changeCount,
-  changeOrdering,
-  changePageSize,
-  changePage,
-  changeSearchWord,
-  addNewGames,
-  choseGame,
-  changeLoading,
-} = searchSlice.actions;
+export const { changeOrdering, changePageSize, changePage, changeSearchWord, choseGame } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;

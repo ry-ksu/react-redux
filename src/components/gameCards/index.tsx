@@ -25,7 +25,7 @@ export const GameCards = (prop: IAPICards) => {
           <div className={styles.gameContent}>
             <h3>{game.name}</h3>
             <p className={styles.gameReleased}>
-              Дата релиза: {new Date(game.released).toLocaleString().slice(0, -10)}
+              Date of release: {new Date(game.released).toLocaleString().slice(0, -10)}
             </p>
           </div>
         </div>

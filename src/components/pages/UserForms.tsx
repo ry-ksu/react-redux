@@ -1,11 +1,12 @@
+// Library
 import React, { useState } from 'react';
-
+// Components
 import { UserFields as UserFields } from '../userFields';
 import { UserCards } from '../userCards';
 import { Modal } from '../modal';
 import { UserFormModalContent } from '../modal/userFormModalContent';
-
-import { UserProps } from '../../types';
+//Other
+import { IFormData } from '../../types';
 import { useAppDispatch } from 'hook';
 import { addUser } from 'store/userSlice';
 
@@ -15,7 +16,7 @@ export const UserForms = () => {
 
   const status = 'modal_user-form';
 
-  const handleSubmit = (card: UserProps) => {
+  const handleSubmit = (card: IFormData) => {
     setModalActive(true);
     dispatch(addUser(card));
   };

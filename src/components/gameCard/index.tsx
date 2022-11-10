@@ -16,11 +16,11 @@ export const GameCard = () => {
       <div className="game-card__content_right">
         <h2 className="game-card__header">{gameState.chosenGame.name}</h2>
         <p className="game-card__years-cancel">
-          {(gameState.chosenGame.esrb_rating != null && gameState.chosenGame.esrb_rating.name_ru) ||
-            'Нет ограничений по возрасту'}
+          {(gameState.chosenGame.esrb_rating != null && gameState.chosenGame.esrb_rating.name_en) ||
+            'No age limit'}
         </p>
         <p className="game-card__date">
-          Дата релиза: {new Date(gameState.chosenGame.released).toLocaleString().slice(0, -10)}
+          Date of release: {new Date(gameState.chosenGame.released).toLocaleString().slice(0, -10)}
         </p>
         <ul className="game-card__genres">
           {gameState.chosenGame.genres.map((game) => {

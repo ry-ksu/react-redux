@@ -1,7 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-// import { CHANGE_PAGE, CHANGE_PAGE_SIZE, CHANGE_ORDERING } from 'reducer';
-// import { useGlobalContext } from '../App';
 import { useAppDispatch, useAppSelector } from 'hook';
 import { changePage, changePageSize, changeOrdering } from 'store/searchSlice';
 import styles from './index.module.css';
@@ -9,7 +7,6 @@ import styles from './index.module.css';
 export const GameList__header = () => {
   const gameState = useAppSelector((state) => state.search);
   const dispatch = useAppDispatch();
-  // const { gamesState, gameDispatch } = useGlobalContext();
   const pageCount = String(Math.ceil(Number(gameState.count) / Number(gameState.pageSize)));
 
   const { register } = useForm({
@@ -30,22 +27,10 @@ export const GameList__header = () => {
 
     if (name === 'page') {
       dispatch(changePage({ page: inputValue }));
-      // gameDispatch({
-      //   type: CHANGE_PAGE,
-      //   payload: { ...gamesState, page: inputValue },
-      // });
     } else if (name === 'pageSize') {
       dispatch(changePageSize({ pageSize: inputValue }));
-      // gameDispatch({
-      //   type: CHANGE_PAGE_SIZE,
-      //   payload: { ...gamesState, pageSize: inputValue },
-      // });
     } else if (name === 'ordering') {
       dispatch(changeOrdering({ ordering: inputValue }));
-      // gameDispatch({
-      //   type: CHANGE_ORDERING,
-      //   payload: { ...gamesState, ordering: inputValue },
-      // });
     }
   };
 

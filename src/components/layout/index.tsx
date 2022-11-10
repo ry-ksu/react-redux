@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAppSelector } from 'hook';
-
 import styles from './index.module.css';
 
 const setActive = ({ isActive }: { isActive: boolean }) => (isActive ? styles['active-link'] : '');
@@ -33,8 +32,6 @@ export const Layout = () => {
       </div>
 
       <Outlet />
-
-      {/* <footer>2022</footer> */}
     </>
   );
 };

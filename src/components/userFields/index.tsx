@@ -1,14 +1,16 @@
+// Library
 import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-
+// Components
 import { ReactHookFormField } from '../reactHookFormField';
-
-import { UserProps, IFormData } from '../../types';
+// Styles
 import styles from './index.module.css';
 import './style.css';
+// Other
+import { IFormData } from '../../types';
 
 type IFormsProps = {
-  onSubmit: (card: UserProps) => void;
+  onSubmit: (card: IFormData) => void;
 };
 
 export const UserFields = (prop: IFormsProps) => {
