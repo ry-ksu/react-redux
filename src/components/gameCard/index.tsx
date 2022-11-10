@@ -1,9 +1,7 @@
 import React from 'react';
 import { useAppSelector } from 'hook';
-// import { useGlobalContext } from 'components/App';
 
 export const GameCard = () => {
-  // const { gamesState } = useGlobalContext();
   const gameState = useAppSelector((state) => state.search);
 
   if (gameState.chosenGame == null) {

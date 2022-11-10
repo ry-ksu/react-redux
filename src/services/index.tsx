@@ -26,5 +26,7 @@ export const axiosGet = (
       },
     })
     .then((response) => response.data)
-    .catch((e) => console.error(e));
+    .catch(() => {
+      throw new Error('Server error');
+    });
 };

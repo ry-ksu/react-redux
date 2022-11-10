@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useGlobalContext } from '../App';
 import { useAppSelector } from 'hook';
 import styles from './index.module.css';
 
@@ -9,7 +8,6 @@ type IAPICards = {
 
 export const GameCards = (prop: IAPICards) => {
   const games = useAppSelector((state) => state.search.gamesCards);
-  // const { gamesState } = useGlobalContext();
 
   return (
     <div className={styles['card-list']}>

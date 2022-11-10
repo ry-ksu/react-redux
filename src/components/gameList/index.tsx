@@ -2,7 +2,6 @@
 import React from 'react';
 // Components
 import { Loader } from '../loader';
-// import { useGlobalContext } from '../App';
 import { GameWarning } from '../gameWarning';
 import { GameList__header } from '../gameList__header/gameList__header';
 import { GameCards } from '../gameCards';
@@ -16,7 +15,6 @@ type IGameListProps = {
 
 export const GameList = (prop: IGameListProps) => {
   const gameState = useAppSelector((state) => state.search);
-  // const { gamesState } = useGlobalContext();
 
   const firstSearch = 'Please enter a request...';
   const notData = 'No games have been created for this query yet. Try another request.';

@@ -50,9 +50,15 @@ export type IGameState = {
   count: string;
   chosenGame: IGame | null;
   isLoaded: string;
+  error: null | string;
 };
 
 export type ISearchAction = {
   type: string;
   payload: IGameState;
+};
+
+export type IGameAPIResponse = {
+  count: number;
+  results: IGame[];
 };
