@@ -1,0 +1,62 @@
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.gamesCard {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  width: 290px;
+  height: 280px;
+  padding: 15px;
+}
+
+.imgWrapper {
+  height: 165px;
+  width: 100%;
+}
+
+.gamesCard img {
+  height: 165px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.gameRating {
+  position: absolute;
+  top: 148px;
+  right: 20px;
+  background: rgb(17, 189, 166);
+  border-radius: 40px;
+  color: #fff;
+  font-size: 16px;
+  height: 21px;
+  display: inline-block;
+  text-align: right;
+  padding: 5px 10px 0;
+}
+
+.gameContent {
+  margin-top: 20px;
+  position: relative;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+}
+
+.gameContent .gameReleased {
+  font-size: 15px;
+  color: rgb(76, 76, 76);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.gameContent h3 {
+  font-size: 20px;
+  color: rgb(26, 26, 26);
+}

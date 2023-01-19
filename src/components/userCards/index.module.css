@@ -1,0 +1,49 @@
+.userCardsWrapper {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px 30px;
+}
+
+.userCard {
+  border: solid 2px rgb(60, 57, 232);
+  border-radius: 20px;
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.userCard img {
+  border-radius: 18px;
+  width: 270px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.content {
+  padding: 10px;
+}
+
+.content h3 {
+  font-size: 23px;
+  color: rgb(26, 26, 26);
+  margin-bottom: 15px;
+}
+
+.content h4 {
+  font-size: 15px;
+  margin-top: 10px;
+  color: rgb(76, 76, 76);
+  font-weight: 500;
+  padding-bottom: 15px;
+}
+
+.content h5 {
+  font-size: 15px;
+  color: rgb(26, 26, 26);
+  font-weight: 500;
+}

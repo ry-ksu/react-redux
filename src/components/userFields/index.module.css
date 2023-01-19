@@ -1,0 +1,78 @@
+.header {
+  max-width: 1120px;
+  margin: auto;
+  display: block;
+  padding: 5px 40px;
+  color: rgb(60, 57, 232);
+}
+
+.formWrapper {
+  padding: 40px;
+  background-image: radial-gradient(rgb(208, 99, 233) 12%, transparent 12%),
+    radial-gradient(rgb(60, 57, 232) 12%, transparent 12%);
+  background-color: #ffffff;
+  background-position: 30px 30px, 50px 50px;
+  background-size: 40px 40px;
+}
+
+.formWrapper form {
+  color: rgb(26, 26, 26);
+  font-weight: 600;
+  font-size: 18px;
+  max-width: 600px;
+  margin: auto;
+  background: #ffffff;
+  border: solid 3px rgb(60, 57, 232);
+  border-radius: 20px;
+  padding: 20px 50px 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formWrapper input,
+.formWrapper select {
+  padding-left: 10px;
+  border-radius: 5px;
+  margin: 30px 10px 0;
+  color: rgb(76, 76, 76);
+  font-weight: 600;
+  outline: none;
+  border: solid 2px rgb(208, 99, 233);
+  color: rgb(60, 57, 232);
+  font-size: 14px;
+}
+
+.formWrapper input[type='text'],
+.formWrapper input[type='date'],
+.formWrapper select {
+  height: 25px;
+}
+
+.formWrapper input[name='PDAgreement'] {
+  margin-top: 60px;
+}
+
+.formWrapper img {
+  height: 200px;
+  width: 200px;
+  padding-left: calc(50% - 100px);
+  padding-top: 10px;
+}
+
+.formWrapper input[type='submit'] {
+  font-weight: 500;
+  padding: 0;
+  height: 40px;
+  width: 200px;
+  margin: auto;
+  margin-top: 25px;
+  background: rgb(60, 57, 232);
+  border: solid 2px rgb(60, 57, 232);
+  color: #ffffff;
+}
+
+.formWrapper input[type='submit']:disabled {
+  background: rgb(225, 225, 225);
+  border: solid 2px rgb(163, 163, 163);
+  color: rgb(163, 163, 163);
+}

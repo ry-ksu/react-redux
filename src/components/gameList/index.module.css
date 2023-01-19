@@ -1,0 +1,23 @@
+.game-list {
+  background: #eceef2;
+  min-height: calc(100vh - 242px);
+}
+
+.game-list-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 5px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.game-list__header,
+.game-list__content {
+  width: 100%;
+}
+
+.game-list__content {
+  margin-top: 20px;
+}

@@ -1,0 +1,130 @@
+.modal {
+  display: none;
+}
+
+.modal__cancel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 35px;
+  width: 35px;
+  background: url(../../img/modal_cancel.png) center / contain no-repeat;
+  cursor: pointer;
+}
+
+.modal_active {
+  height: 100vh;
+  width: 100%;
+  background: rgba(66, 57, 189, 0.4);
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.modal__content_user-form {
+  position: relative;
+  border-radius: 20px;
+  background: #fff;
+  height: 200px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: auto;
+}
+
+.content {
+  font-size: 25px;
+  color: rgb(26, 26, 26);
+  background: #fff;
+}
+
+/* for games */
+
+.modal__content_game {
+  position: relative;
+  padding: 20px;
+  width: 700px;
+  height: 340px;
+  background: #fff;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: auto;
+}
+
+.game-card__content_left {
+  position: relative;
+}
+
+.game-card {
+  padding: 0 20px;
+  display: flex;
+  gap: 20px;
+  background: #fff;
+  padding: 60px 40px;
+  border-radius: 20px;
+}
+
+.game-card img {
+  border-radius: 20px;
+  width: 300px;
+  height: 200px;
+}
+
+.game-card__source {
+  position: absolute;
+  bottom: 15px;
+  left: 10px;
+  background: rgb(17, 189, 166);
+  border-radius: 40px;
+  color: #fff;
+  font-size: 16px;
+  height: 21px;
+  display: inline-block;
+  text-align: right;
+  padding: 5px 10px 0;
+}
+
+.game-card__url {
+  margin-top: 5px;
+  margin-left: 5px;
+  text-decoration: none;
+  display: block;
+}
+
+.game-card__content_right {
+  position: relative;
+  width: 350px;
+}
+
+.game-card__date {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 20px;
+  font-size: 15px;
+  color: rgb(76, 76, 76);
+}
+
+.game-card__header {
+  font-size: 30px;
+  color: rgb(26, 26, 26);
+}
+
+.game-card__years-cancel {
+  padding: 0 10px;
+  margin-top: 10px;
+  font-size: 18px;
+  color: rgb(49, 49, 49);
+}
+
+.game-card__genres {
+  padding: 20px 30px;
+  color: rgb(26, 26, 26);
+}

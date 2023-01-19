@@ -1,0 +1,41 @@
+.page-name {
+  max-width: 1120px;
+  margin: auto;
+  display: block;
+  padding: 5px 40px;
+  color: rgb(60, 57, 232);
+}
+
+.game__back-btn-wrapper {
+  padding: 40px 0;
+  background-image: radial-gradient(rgb(208, 99, 233) 12%, transparent 12%),
+    radial-gradient(rgb(60, 57, 232) 12%, transparent 12%);
+  background-color: #ffffff;
+  background-position: 30px 30px, 50px 50px;
+  background-size: 40px 40px;
+}
+
+.game__back-btn-container {
+  max-width: 1080px;
+  margin: auto;
+  display: block;
+  padding: 5px 40px;
+}
+
+.game__back-btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: rgb(208, 99, 233);
+  border: #ffffff 2px solid;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.game__card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 244px);
+  background: #eceef2;
+}

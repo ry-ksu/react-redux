@@ -1,0 +1,22 @@
+.loader {
+  display: none;
+}
+
+.loader__img {
+  position: absolute;
+  height: 75px;
+  width: 75px;
+  background: url(../../img/loader.gif) center / contain no-repeat;
+}
+
+.loader_active {
+  height: calc(100vh - 242px);
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 242px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
